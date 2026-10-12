@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>暖心起點：從善開始｜iPadART SEL</title>
+<meta name="description" content="林英斌老師 × Goodnotes Education。11 個 Goodnotes 靜心挑戰活動，依 CASEL 五大能力設計，附說明卡、模板下載、教學影片與跨域 AI 方法卡。適用國小高年級、國中、高中。">
+<meta property="og:title" content="暖心起點：從善開始｜iPadART SEL">
+<meta property="og:description" content="11 個 Goodnotes 靜心挑戰活動，幫助學生建立情緒覺察、友善行為與數位素養。">
+<meta property="og:image" content="https://sel.ipadart.net/img/cover.png">
+<meta property="og:url" content="https://sel.ipadart.net/">
+<link rel="icon" href="img/cover.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Palette follows the card set: Goodnotes navy, warm yellow arcs, white rounded panels. Single deliberate light look. */
+:root{
+  --navy:#20233f;
+  --navy-2:#2c3052;
+  --yellow:#ffe15a;
+  --paper:#f6f5f0;
+  --white:#ffffff;
+  --ink:#1d2033;
+  --ink-soft:#5d6074;
+  --line:#e2e0d8;
+  --tag-aw:#d6542f;   /* 自我覺察 */
+  --tag-mg:#2f7f6b;   /* 自我管理 */
+  --tag-so:#3762b8;   /* 社會覺察 */
+  --tag-re:#a0469a;   /* 人際技巧 */
+  --tag-de:#8a6a10;   /* 負責任的決策 */
+  --f-display:"LXGW WenKai TC","Kaiti TC","DFKai-SB",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:20px}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+/* top bar */
+.bar{background:var(--navy);color:var(--white);position:sticky;top:0;z-index:20}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;flex-wrap:wrap;padding-block:6px}
+.brand{font-weight:700;text-decoration:none;letter-spacing:.04em;display:flex;align-items:center;gap:10px}
+.brand small{font-weight:400;opacity:.7;font-size:13px}
+.nav{display:flex;gap:4px;flex-wrap:wrap}
+.nav a{text-decoration:none;font-size:14px;padding:6px 12px;border-radius:999px}
+.nav a:hover{background:var(--navy-2)}
+.nav a.out{border:1px solid rgba(255,255,255,.35)}
+
+/* hero */
+.hero{background:var(--navy);color:var(--white);position:relative;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;border:26px solid var(--yellow);border-radius:50%;pointer-events:none}
+.hero::before{width:520px;height:520px;right:-180px;top:-260px}
+.hero::after{width:420px;height:420px;left:-230px;bottom:-300px}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center;padding-block:56px 64px}
+@media (max-width:820px){.hero .wrap{grid-template-columns:minmax(0,1fr);padding-block:40px 48px}}
+.eyebrow{display:inline-block;font-size:13px;letter-spacing:.12em;background:var(--yellow);color:var(--navy);padding:3px 12px;border-radius:999px;font-weight:700}
+.hero h1{font-family:var(--f-display);font-size:clamp(40px,7vw,68px);line-height:1.15;margin:16px 0 12px;text-wrap:balance}
+.hero p.lead{font-size:18px;max-width:34em;margin:0 0 8px;opacity:.92}
+.hero p.by{font-size:14px;opacity:.75;margin:0 0 24px}
+.entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.entries{grid-template-columns:minmax(0,1fr)}}
+.entry{background:var(--white);color:var(--navy);text-decoration:none;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;transition:transform .15s}
+.entry:hover{transform:translateY(-2px)}
+.entry b{font-size:16px}
+.entry span{font-size:13px;color:var(--ink-soft);line-height:1.5}
+.entry i{font-style:normal;font-family:var(--f-display);font-size:22px;color:#c99a00}
+.hero-card{border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);transform:rotate(2deg);max-width:420px;justify-self:center}
+
+/* how-to strip */
+.how{background:var(--white);border-bottom:1px solid var(--line)}
+.how .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-block:28px}
+@media (max-width:720px){.how .wrap{grid-template-columns:minmax(0,1fr)}}
+.how div{display:flex;gap:12px;align-items:flex-start}
+.how .n{font-family:var(--f-display);font-size:28px;line-height:1;color:var(--navy);background:var(--yellow);border-radius:50%;width:44px;height:44px;flex:none;display:grid;place-items:center}
+.how b{display:block}
+.how p{margin:0;font-size:14px;color:var(--ink-soft)}
+
+/* sections */
+section{padding-block:56px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:22px}
+.sec-head h2{font-family:var(--f-display);font-size:clamp(30px,4.5vw,42px);margin:0;line-height:1.2;color:var(--navy)}
+.sec-head p{margin:4px 0 0;color:var(--ink-soft);max-width:44em}
+
+/* filter */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.filters button{font:inherit;font-size:14px;border:1.5px solid var(--navy);background:transparent;color:var(--navy);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--navy);color:var(--white)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.act{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.act .shot{all:unset;cursor:zoom-in;display:block;background:var(--navy)}
+.act .shot img{aspect-ratio:1;object-fit:cover;width:100%}
+.act .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tag{align-self:flex-start;font-size:12px;font-weight:700;color:var(--white);border-radius:999px;padding:2px 10px;letter-spacing:.04em}
+.tag.aw{background:var(--tag-aw)}.tag.mg{background:var(--tag-mg)}.tag.so{background:var(--tag-so)}.tag.re{background:var(--tag-re)}.tag.de{background:var(--tag-de)}
+.act h3{margin:0;font-size:20px;color:var(--navy)}
+.act .goal{margin:0;font-size:14px;color:var(--ink-soft)}
+.act details{font-size:14px;border-top:1px dashed var(--line);padding-top:8px}
+.act summary{cursor:pointer;font-weight:500;color:var(--navy)}
+.act ol{margin:8px 0;padding-left:1.3em}
+.act .tip{background:var(--paper);border-radius:10px;padding:8px 12px;margin:6px 0 0}
+.act .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:4px}
+.btn{font:inherit;font-size:13px;font-weight:500;text-decoration:none;border-radius:999px;padding:7px 14px;border:1.5px solid var(--navy);color:var(--navy);background:var(--white);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn.solid{background:var(--navy);color:var(--white)}
+.btn:hover{background:var(--yellow);color:var(--navy);border-color:var(--navy)}
+.thumbs{display:flex;gap:6px}
+.thumbs button{all:unset;cursor:zoom-in;width:52px;height:52px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+
+/* videos */
+.videos{background:var(--navy);color:var(--white)}
+.videos .sec-head h2{color:var(--white)}
+.videos .sec-head p{color:rgba(255,255,255,.75)}
+.series{margin-bottom:32px}
+.series h3{font-family:var(--f-display);font-size:24px;margin:0 0 4px;color:var(--yellow)}
+.series>p{margin:0 0 14px;color:rgba(255,255,255,.75);font-size:14px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.vid{background:var(--navy-2);border-radius:12px;overflow:hidden;min-width:0}
+.vid .frame{position:relative;aspect-ratio:16/9;background:#000}
+.vid .frame button{all:unset;cursor:pointer;position:absolute;inset:0;display:block}
+.vid .frame img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.vid .frame .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:var(--yellow);display:grid;place-items:center}
+.vid .frame .play::after{content:"";border-left:18px solid var(--navy);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid .cap{padding:10px 12px;font-size:14px}
+.vid .cap b{display:block;color:var(--yellow);font-size:12px;letter-spacing:.08em}
+
+/* more */
+.more{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:860px){.more{grid-template-columns:minmax(0,1fr)}}
+.more a{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px;text-decoration:none;display:flex;flex-direction:column;gap:8px}
+.more a:hover{border-color:var(--navy)}
+.more .k{font-size:12px;letter-spacing:.1em;color:var(--ink-soft);font-weight:700}
+.more b{font-family:var(--f-display);font-size:24px;color:var(--navy)}
+.more p{margin:0;font-size:14px;color:var(--ink-soft)}
+.more .go{margin-top:auto;font-weight:700;color:var(--navy)}
+.more a.feature{background:var(--yellow);border-color:var(--yellow)}
+.more a.feature p,.more a.feature .k{color:var(--navy)}
+
+footer{background:var(--navy);color:rgba(255,255,255,.8);font-size:14px}
+footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:var(--yellow)}
+
+/* lightbox */
+dialog{border:0;padding:0;background:transparent;max-width:min(92vw,820px)}
+dialog::backdrop{background:rgba(20,22,40,.85)}
+dialog img{border-radius:14px;max-height:84vh;width:auto;margin:0 auto}
+dialog form{text-align:center;margin-top:10px}
+dialog .btn{background:var(--white)}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top">iPadART · 暖心起點 <small>中文 SEL 學習站</small></a>
+    <nav class="nav" aria-label="主選單">
+      <a href="#cards">圖卡</a>
+      <a href="#videos">影片</a>
+      <a href="ai-cards/">AI 方法卡</a>
+      <a class="out" href="https://www.ipadart.net/">ipadart.net ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Goodnotes 靜心挑戰活動卡</span>
+        <h1>暖心起點：<br>從善開始</h1>
+        <p class="lead">11 個用 Goodnotes 完成的小活動，依 CASEL 五大能力設計，幫助學生建立情緒覺察、友善行為與數位素養。</p>
+        <p class="by">林英斌老師 × Goodnotes Education｜適用國小高年級、國中、高中</p>
+        <div class="entries">
+          <a class="entry" href="#cards"><i>①</i><b>活動圖卡</b><span>說明卡、模板、範例一次下載</span></a>
+          <a class="entry" href="#videos"><i>②</i><b>教學影片</b><span>《何止好筆記》操作示範</span></a>
+          <a class="entry" href="ai-cards/"><i>③</i><b>跨域 AI 方法卡</b><span>產生 SEL、永續議題的 Prompt</span></a>
+        </div>
+      </div>
+      <img class="hero-card" src="img/cover.png" alt="暖心起點：從善開始 封面卡，Goodnotes Education" width="1080" height="1080">
+    </div>
+  </div>
+
+  <div class="how">
+    <div class="wrap">
+      <div><span class="n">1</span><span><b>挑一個活動</b><p>依想培養的能力篩選，先看說明卡的四個步驟。</p></span></div>
+      <div><span class="n">2</span><span><b>下載模板，匯入 Goodnotes</b><p>在 iPad 上存下模板圖片，插入或匯入成筆記頁面。</p></span></div>
+      <div><span class="n">3</span><span><b>學生動手完成</b><p>作品留在自己的筆記本裡，真實的情緒不需要交給 AI。</p></span></div>
+    </div>
+  </div>
+
+  <section id="cards">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>活動圖卡</h2>
+          <p>點圖卡可以放大。每個活動都能下載說明卡與模板；部分活動附有完成範例與影片。</p>
+        </div>
+      </div>
+      <div class="filters" role="group" aria-label="依 CASEL 能力篩選">
+        <button type="button" aria-pressed="true" data-f="all">全部（11）</button>
+        <button type="button" aria-pressed="false" data-f="aw">自我覺察</button>
+        <button type="button" aria-pressed="false" data-f="mg">自我管理</button>
+        <button type="button" aria-pressed="false" data-f="so">社會覺察</button>
+        <button type="button" aria-pressed="false" data-f="re">人際技巧</button>
+        <button type="button" aria-pressed="false" data-f="de">負責任的決策</button>
+      </div>
+
+      <div class="grid" id="grid">
+
+        <article class="act" data-c="aw">
+          <button class="shot" type="button" data-zoom="img/draw-emotion.png"><img src="img/draw-emotion.png" alt="畫出你的情緒 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag aw">自我覺察</span>
+            <h3>畫出你的情緒</h3>
+            <p class="goal">情緒理解：學習用圖像與詞語，認出並說出自己的情緒。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>用形狀工具畫出一張簡單的臉（可試用填色工具）。</li><li>用螢光筆上色，選擇能代表你心情的顏色。</li><li>寫下一個情緒詞，並可調整表達符號的顏色或大小。</li><li>用套索工具選取並加入你的元素收藏區。</li></ol>
+              <p class="tip">引導建議：結合形狀、顏色與語詞，幫助學生建立情緒詞彙並加強自我表達。</p>
+            </details>
+            <div class="thumbs" aria-label="範例"><button type="button" data-zoom="img/draw-emotion-example.png"><img src="img/draw-emotion-example.png" alt="範例：二十張彩色情緒臉" loading="lazy"></button></div>
+            <div class="btns"><a class="btn" href="img/draw-emotion.png" download>下載說明卡</a><a class="btn solid" href="#v-emotion">看影片</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="aw">
+          <button class="shot" type="button" data-zoom="img/emotion-sort.png"><img src="img/emotion-sort.png" alt="情緒分類遊戲 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag aw">自我覺察</span>
+            <h3>情緒分類遊戲</h3>
+            <p class="goal">情緒認識：辨識與分類不同類型的情緒。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>用線條將頁面分成兩欄，分別標示「正向情緒」與「負面情緒」。</li><li>使用貼圖或相機拍攝 4 種不同的臉部表情。</li><li>用套索工具將表情圖拖曳到對應的欄位中。</li><li>為每一欄加上一個情緒詞（如：快樂、生氣、緊張……）。</li></ol>
+              <p class="tip">引導建議：幫助學生更清楚辨識自身與他人的情緒反應，增進情緒詞彙與理解力。</p>
+              <p class="tip">隱私提醒：拍攝表情時，建議用貼圖或不露臉的方式，避免拍到同學的臉。</p>
+            </details>
+            <div class="btns"><a class="btn" href="img/emotion-sort.png" download>下載說明卡</a><a class="btn solid" href="img/emotion-sort-template.png" download>下載模板</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="aw">
+          <button class="shot" type="button" data-zoom="img/focus.png"><img src="img/focus.png" alt="我的注意力溫度計 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag aw">自我覺察</span>
+            <h3>我的注意力溫度計</h3>
+            <p class="goal">練習觀察自己的注意力狀態與影響因素。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>開啟老師提供的「注意力溫度計」模板頁。</li><li>用螢光筆標記今天的注意力等級（1–5 分）。</li><li>用文字或畫筆寫下影響你專注的原因。</li><li>若你願意，可將這張圖分享給你信任的人。</li></ol>
+              <p class="tip">引導建議：引導學生反思專注狀態，有助於建立正向的學習自我認識。</p>
+            </details>
+            <div class="btns"><a class="btn" href="img/focus.png" download>下載說明卡</a><a class="btn solid" href="img/focus-template.png" download>下載模板</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="mg">
+          <button class="shot" type="button" data-zoom="img/bubble.png"><img src="img/bubble.png" alt="我的平靜泡泡 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag mg">自我管理</span>
+            <h3>我的平靜泡泡</h3>
+            <p class="goal">用顏色與圖形製作專屬的靜心圖卡。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>用筆畫出一個讓你感到平靜或放鬆的圖形。</li><li>用螢光筆填上讓你感覺舒服的顏色。</li><li>在圖形裡加入讓你冷靜或放鬆的詞語。</li><li>用套索工具選取整個圖形與文字，一起存入你的元素收藏。</li></ol>
+              <p class="tip">引導建議：透過色彩與圖像幫助學生學會自我安撫與情緒管理。</p>
+            </details>
+            <div class="thumbs" aria-label="範例"><button type="button" data-zoom="img/bubble-example-1.png"><img src="img/bubble-example-1.png" alt="範例：彩色泡泡" loading="lazy"></button><button type="button" data-zoom="img/bubble-example-2.png"><img src="img/bubble-example-2.png" alt="範例：水母與泡泡" loading="lazy"></button></div>
+            <div class="btns"><a class="btn" href="img/bubble.png" download>下載說明卡</a><a class="btn" href="img/bubble-template.png" download>下載模板</a><a class="btn solid" href="#v-bubble">看影片</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="mg">
+          <button class="shot" type="button" data-zoom="img/positive-voice.png"><img src="img/positive-voice.png" alt="我的正向聲音 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag mg">自我管理</span>
+            <h3>我的正向聲音</h3>
+            <p class="goal">自我鼓勵：練習說出支持自己的話語，提升信心。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>寫下 3 句你希望別人對你說的鼓勵話語。</li><li>改寫成「我對自己說」的版本，例如：「你很努力」→「我很努力」。</li><li>加入貼圖做視覺設計。</li><li>使用 Clips 製作成鼓勵短片，可以加入文字、音樂，成為你專屬的正向語音卡。</li></ol>
+              <p class="tip">引導建議：讓學生用創意影片呈現自己的鼓勵語，有助於內化正向語言並強化自我認同。</p>
+            </details>
+            <div class="thumbs" aria-label="範例"><button type="button" data-zoom="img/positive-voice-example.png"><img src="img/positive-voice-example.png" alt="範例：正能量語錄清單" loading="lazy"></button></div>
+            <div class="btns"><a class="btn" href="img/positive-voice.png" download>下載說明卡</a><a class="btn solid" href="img/positive-voice-template.png" download>下載模板（語錄清單）</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="mg">
+          <button class="shot" type="button" data-zoom="img/star-jar.png"><img src="img/star-jar.png" alt="願望星星罐 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag mg">自我管理</span>
+            <h3>願望星星罐</h3>
+            <p class="goal">希望與目標：想像並可視化實現小目標的希望與動機。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>畫出一個罐子或使用老師提供的模板。</li><li>在罐中畫 3 顆星星，分別在每顆寫下一個願望。</li><li>用套索工具改變顏色或位置，表示你想專注實現的那一個願望。</li><li>匯出並儲存這頁內容（如存入相簿、學習檔案或目標筆記中）。</li></ol>
+              <p class="tip">引導建議：讓學生以具象圖像展現願望，有助於激發主動實踐的動力。</p>
+            </details>
+            <div class="btns"><a class="btn" href="img/star-jar.png" download>下載說明卡</a><a class="btn solid" href="img/star-jar-template.png" download>下載模板</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="so">
+          <button class="shot" type="button" data-zoom="img/friend-list.png"><img src="img/friend-list.png" alt="好朋友小清單 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag so">社會覺察</span>
+            <h3>好朋友小清單</h3>
+            <p class="goal">明確觀察與記錄友善行為。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>建立一張好朋友行動清單，可以是你做過的，也可以是你想嘗試的行為。</li><li>開啟 Split View 搜尋相關圖片並拖曳到頁面中。</li><li>每項行動搭配一個 emoji，表示別人的感受。</li><li>勾選你這週完成的行動。</li></ol>
+              <p class="tip">引導建議：引導學生觀察與練習友善行動，並透過簡單回顧建立正向社交習慣。</p>
+            </details>
+            <div class="btns"><a class="btn" href="img/friend-list.png" download>下載說明卡</a><a class="btn solid" href="img/friend-list-template.png" download>下載模板</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="so">
+          <button class="shot" type="button" data-zoom="img/kindness-found.png"><img src="img/kindness-found.png" alt="發現的善意 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag so">社會覺察</span>
+            <h3>發現的善意</h3>
+            <p class="goal">看見他人的善意並練習感受表達。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>用動作來表演並拍照這週別人對你表現善意的情境。</li><li>將照片插入 Goodnotes 頁面中。</li><li>用文字框或語音轉文字寫下你的感受。</li><li>用星號或螢光筆標記你覺得最溫暖的一刻。</li></ol>
+              <p class="tip">引導建議：結合行動與圖像，引導學生觀察他人善意並學習感恩表達。</p>
+              <p class="tip">隱私提醒：拍照前先徵得同學同意，或用背影、手部動作呈現。</p>
+            </details>
+            <div class="btns"><a class="btn" href="img/kindness-found.png" download>下載說明卡</a><a class="btn solid" href="img/kindness-found-template.png" download>下載模板</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="re">
+          <button class="shot" type="button" data-zoom="img/unwrap.png"><img src="img/unwrap.png" alt="拆封你的正能量 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag re">人際技巧</span>
+            <h3>拆封你的正能量</h3>
+            <p class="goal">建立同儕信任與正向互動。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>選一位同學，想一段你真心想給他的正向回饋或稱讚。</li><li>使用文字方塊寫下一句友善的話。</li><li>用膠帶工具把這段話蓋起來。</li><li>和同學交換 iPad 或頁面，互相打開膠帶閱讀「友情膠帶：給你的驚喜」。</li><li>完成後，全班一起討論：讀到這句話，你有什麼感覺？</li></ol>
+              <p class="tip">引導建議：讓學生練習給予正面肯定與建立信任感。善用膠帶工具的互動性，有助於學生感受到「言語的力量」，也培養正向回饋的習慣。</p>
+            </details>
+            <div class="btns"><a class="btn" href="img/unwrap.png" download>下載說明卡</a><a class="btn solid" href="img/unwrap-template.png" download>下載模板（友情膠帶）</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="de">
+          <button class="shot" type="button" data-zoom="img/good-deed.png"><img src="img/good-deed.png" alt="今天做了好事嗎？ 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag de">負責任的決策</span>
+            <h3>今天做了好事嗎？</h3>
+            <p class="goal">鼓勵學生主動行善，覺察行為對他人的影響。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>搜尋 3–5 個這週你想嘗試的善意行動（例如：主動打招呼、幫同學收桌子）。</li><li>用螢幕分屏找圖片或貼圖，放在頁面中央。</li><li>每完成一項，就用套索工具把圖片移到圓圈中。</li><li>在圖片旁寫下一個詞，描述這個行動帶來的感受。</li></ol>
+              <p class="tip">引導建議：這個活動透過視覺化記錄，幫助學生將「善意」具體化、日常化。搭配反思詞彙練習，有助於建立情緒詞彙庫與正向人際互動。</p>
+            </details>
+            <div class="btns"><a class="btn" href="img/good-deed.png" download>下載說明卡</a><a class="btn solid" href="img/good-deed-template.png" download>下載模板</a></div>
+          </div>
+        </article>
+
+        <article class="act" data-c="de">
+          <button class="shot" type="button" data-zoom="img/marble-diary.png"><img src="img/marble-diary.png" alt="玻璃珠日記 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <div class="body">
+            <span class="tag de">負責任的決策</span>
+            <h3>玻璃珠日記</h3>
+            <p class="goal">記錄那些一點一滴累積信任的貼心行動。</p>
+            <details><summary>文字版步驟</summary>
+              <ol><li>使用「玻璃珠日記」模板（含圓點或罐子圖示）。</li><li>每做一件善意或誠實的事，就加入一顆貼圖或畫出一顆玻璃珠。</li><li>在便利貼中寫下你做了什麼、或當下的感受。</li><li>一週後，回顧你的玻璃珠日記，思考這些行動對你或他人的影響。</li></ol>
+              <p class="tip">引導建議：這個活動幫助學生以視覺化方式追蹤自己的正向行為，理解「信任是慢慢累積的」。同時也提升情緒識讀與內在動機。</p>
+            </details>
+            <div class="btns"><a class="btn" href="img/marble-diary.png" download>下載說明卡</a><a class="btn solid" href="img/marble-diary-template.png" download>下載模板</a></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="videos" id="videos">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>教學影片：何止好筆記</h2>
+          <p>每支一到兩分鐘，示範 Goodnotes 的工具怎麼用在情緒表達與靜心創作。點畫面播放，有中文字幕。</p>
+        </div>
+        <a class="btn" href="https://www.youtube.com/playlist?list=PLGpeOK3WuyG8MWjABIN3jljrFkCKbPVB1" target="_blank" rel="noopener">在 YouTube 看完整清單 ↗</a>
+      </div>
+
+      <div class="series" id="v-bubble">
+        <h3>我的平靜泡泡</h3>
+        <p>對應活動：我的平靜泡泡（自我管理）</p>
+        <div class="vgrid">
+          <div class="vid" data-id="sCJO3S7QE3c"><div class="frame"><button type="button" aria-label="播放：01 引導發想"><img src="https://i.ytimg.com/vi/sCJO3S7QE3c/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></button></div><div class="cap"><b>01</b>引導發想：想一個代表現在感覺的詞語</div></div>
+          <div class="vid" data-id="GGEwAR7ShDo"><div class="frame"><button type="button" aria-label="播放：02 色彩拼圖"><img src="https://i.ytimg.com/vi/GGEwAR7ShDo/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></button></div><div class="cap"><b>02</b>技法：鉛筆漸層與截圖色塊，做成色彩拼圖</div></div>
+          <div class="vid" data-id="iWr-XWIP0wo"><div class="frame"><button type="button" aria-label="播放：03 示範創作"><img src="https://i.ytimg.com/vi/iWr-XWIP0wo/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></button></div><div class="cap"><b>03</b>示範創作：配色、明度與重複排列</div></div>
+        </div>
+      </div>
+
+      <div class="series" id="v-emotion">
+        <h3>畫出你的情緒</h3>
+        <p>對應活動：畫出你的情緒（自我覺察）</p>
+        <div class="vgrid">
+          <div class="vid" data-id="LDMwNJzyMwU"><div class="frame"><button type="button" aria-label="播放：02-01 情緒臉"><img src="https://i.ytimg.com/vi/LDMwNJzyMwU/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></button></div><div class="cap"><b>02-01</b>情緒臉：畫表情、配上情緒詞</div></div>
+          <div class="vid" data-id="yKGH9kSKvA8"><div class="frame"><button type="button" aria-label="播放：02-02 線條與留白"><img src="https://i.ytimg.com/vi/yKGH9kSKvA8/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></button></div><div class="cap"><b>02-02</b>線條與留白：調整圖層前後</div></div>
+          <div class="vid" data-id="HtjY7hfOJAA"><div class="frame"><button type="button" aria-label="播放：02-03 紋理造型"><img src="https://i.ytimg.com/vi/HtjY7hfOJAA/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></button></div><div class="cap"><b>02-03</b>紋理造型：照片裁切成石頭質感貼圖</div></div>
+          <div class="vid" data-id="YIdZpMn1zBM"><div class="frame"><button type="button" aria-label="播放：02-04 從紋理聯想情緒"><img src="https://i.ytimg.com/vi/YIdZpMn1zBM/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></button></div><div class="cap"><b>02-04</b>從紋理聯想情緒</div></div>
+          <div class="vid" data-id="BBcfOfvS15A"><div class="frame"><button type="button" aria-label="播放：02-05 情緒色彩題庫"><img src="https://i.ytimg.com/vi/BBcfOfvS15A/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></button></div><div class="cap"><b>02-05</b>情緒色彩題庫：色彩和情緒詞配對</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="more">
+    <div class="wrap">
+      <div class="sec-head"><div><h2>延伸資源</h2><p>把活動帶進課堂，或延伸到其他領域。</p></div></div>
+      <div class="more">
+        <a class="feature" href="ai-cards/">
+          <span class="k">給各領域老師</span>
+          <b>跨域 AI 方法卡</b>
+          <p>選擇學段、議題（SEL、永續）與領域，產生 8 種 AI 教學方法的 Prompt，一鍵複製。</p>
+          <span class="go">開啟方法卡 →</span>
+        </a>
+        <a href="https://padlet.com/red_pig/goodnotes-sel-s024fjs17zav03w00d3j" target="_blank" rel="noopener">
+          <span class="k">課堂看板</span>
+          <b>Padlet 圖卡庫</b>
+          <p>同一套圖卡依 CASEL 分欄整理，方便投影或分享給學生。</p>
+          <span class="go">開啟 Padlet ↗</span>
+        </a>
+        <a href="https://www.ipadart.net/product-page/goodnotes-students-activities-cards" target="_blank" rel="noopener" lang="en">
+          <span class="k">ENGLISH VERSION</span>
+          <b>Goodnotes Students Activities Cards</b>
+          <p>The English edition of this card set, on ipadart.net.</p>
+          <span class="go">Open ↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 林英斌 iPadART × Goodnotes Education｜暖心起點：從善開始</span>
+    <span><a href="https://www.ipadart.net/">ipadart.net</a></span>
+  </div>
+</footer>
+
+<dialog id="zoom" aria-label="放大檢視">
+  <img id="zoomImg" alt="">
+  <form method="dialog"><button class="btn" type="submit">關閉</button></form>
+</dialog>
+
+<script>
+// CASEL filter
+const filters=document.querySelectorAll('.filters button');
+filters.forEach(b=>b.addEventListener('click',()=>{
+  filters.forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));
+  const f=b.dataset.f;
+  document.querySelectorAll('#grid .act').forEach(a=>{a.hidden=!(f==='all'||a.dataset.c===f)});
+}));
+// lightbox
+const dlg=document.getElementById('zoom'),zi=document.getElementById('zoomImg');
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-zoom]');if(!t)return;
+  zi.src=t.dataset.zoom;zi.alt=(t.querySelector('img')||{}).alt||'';
+  if(dlg.showModal)dlg.showModal();else window.open(t.dataset.zoom);
+});
+dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+// lite YouTube embeds
+document.querySelectorAll('.vid').forEach(v=>{
+  v.querySelector('button').addEventListener('click',()=>{
+    const f=document.createElement('iframe');
+    f.src='https://www.youtube-nocookie.com/embed/'+v.dataset.id+'?autoplay=1&rel=0&cc_load_policy=1';
+    f.title=v.querySelector('.cap').textContent;
+    f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen=true;
+    v.querySelector('.frame').replaceChildren(f);
+  });
+});
+</script>
+</body>
+</html>

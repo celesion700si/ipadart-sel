@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="依學段、議題（SEL、永續）與參與領域，產生 8 種 AI 教學方法的 Prompt。林英斌老師。">
+<title>跨域 AI 方法卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: 稿紙 header; settings form left (sticky on desktop); right column = theme brief, cross-domain matrix, method cards. Accent follows the chosen 議題. */
+:root{
+  --paper:#f5f6f1;--card:#ffffff;--ink:#1e2622;--ink-soft:#5a655f;--line:#d8ddd4;--code:#eff1eb;
+  --panel:#27352f;--panel-ink:#f4f6f2;--grid:#c9574a;
+  --acc-sel:#b9502f;--acc-sel-soft:#f8e6df;
+  --acc-env:#2f7448;--acc-env-soft:#e1efe4;
+  --acc-custom:#4a5a9c;--acc-custom-soft:#e4e7f4;
+  --warn:#a8432c;--ok:#2f7a4f;
+  --f-display:"LXGW WenKai TC","Kaiti TC","DFKai-SB",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#131916;--card:#1b231f;--ink:#e5eae6;--ink-soft:#9eada5;--line:#2e3a34;--code:#111714;
+  --panel:#22302a;--panel-ink:#eef2ee;--grid:#e0796c;
+  --acc-sel:#f08a68;--acc-sel-soft:#3a241c;--acc-env:#6fc58c;--acc-env-soft:#1d3324;--acc-custom:#9aa8ec;--acc-custom-soft:#232a45;
+  --warn:#ef8a73;--ok:#3f9a66;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#131916;--card:#1b231f;--ink:#e5eae6;--ink-soft:#9eada5;--line:#2e3a34;--code:#111714;
+  --panel:#22302a;--panel-ink:#eef2ee;--grid:#e0796c;
+  --acc-sel:#f08a68;--acc-sel-soft:#3a241c;--acc-env:#6fc58c;--acc-env-soft:#1d3324;--acc-custom:#9aa8ec;--acc-custom-soft:#232a45;
+  --warn:#ef8a73;--ok:#3f9a66;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;padding-inline:16px;padding-block:24px 64px}
+.wrap{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:28px;--acc:var(--acc-sel);--acc-soft:var(--acc-sel-soft)}
+.wrap[data-topic="env"]{--acc:var(--acc-env);--acc-soft:var(--acc-env-soft)}
+.wrap[data-topic="custom"]{--acc:var(--acc-custom);--acc-soft:var(--acc-custom-soft)}
+
+header{display:flex;flex-direction:column;gap:12px}
+.manuscript{display:flex;flex-wrap:wrap;font-family:var(--f-display);font-weight:700}
+.manuscript span{width:clamp(36px,8vw,56px);aspect-ratio:1;display:grid;place-items:center;font-size:clamp(22px,5vw,36px);border:1.5px solid var(--grid);margin-left:-1.5px;background:var(--card);color:var(--ink)}
+.manuscript span:first-child{margin-left:0}
+.lede{max-width:70ch;color:var(--ink-soft);margin:0}
+.lede a{color:var(--acc)}
+
+.layout{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}}
+.settings{background:var(--panel);color:var(--panel-ink);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:900px){.settings{position:static;max-height:none}}
+.settings h2{font-family:var(--f-display);font-size:22px;margin:0}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+legend,.field label{font-size:13px;font-weight:500;letter-spacing:.04em;padding:0;margin-bottom:4px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg label,.dom label{position:relative;cursor:pointer}
+.seg input,.dom input{position:absolute;opacity:0;pointer-events:none}
+.seg span,.dom span{display:inline-block;font-size:13px;padding:5px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.3);color:var(--panel-ink)}
+.seg input:checked+span,.dom input:checked+span{background:var(--panel-ink);color:var(--panel);border-color:var(--panel-ink);font-weight:500}
+.seg input:focus-visible+span,.dom input:focus-visible+span{outline:2px solid var(--acc);outline-offset:2px}
+.dom{display:flex;flex-wrap:wrap;gap:6px}
+.field{display:flex;flex-direction:column;gap:2px;min-width:0}
+.field input,.field textarea{font:inherit;font-size:14px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.2);color:var(--panel-ink);border-radius:6px;padding:8px 10px;width:100%}
+.field textarea{resize:vertical;min-height:72px;line-height:1.55}
+.field input:focus,.field textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
+.hint{font-size:12px;opacity:.75;line-height:1.45;margin-top:2px}
+.copyright{font-size:12px;line-height:1.5;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:8px 10px}
+.copyright b{color:var(--panel-ink)}
+.ghost{font:inherit;font-size:13px;background:transparent;color:var(--panel-ink);border:1px solid rgba(255,255,255,.4);border-radius:6px;padding:6px 12px;cursor:pointer;align-self:flex-start}
+.ghost:hover{background:rgba(255,255,255,.1)}
+
+.main{display:flex;flex-direction:column;gap:32px;min-width:0}
+.brief{background:var(--acc-soft);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.brief h2{font-family:var(--f-display);font-size:28px;margin:0;color:var(--acc);line-height:1.25}
+.brief p{margin:0;font-size:14px}
+.brief .meta{color:var(--ink-soft);font-size:13px}
+.brief ul{margin:0;padding-left:1.2em;font-size:13px;display:flex;flex-direction:column;gap:4px}
+.brief h3{font-size:13px;margin:4px 0 0;letter-spacing:.06em;color:var(--ink-soft)}
+
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:6px 16px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:14px}
+.sec-head h2{font-family:var(--f-display);font-size:26px;margin:0;line-height:1.2}
+.sec-head p{margin:2px 0 0;color:var(--ink-soft);font-size:13px}
+.matrix-wrap{overflow-x:auto}
+table.matrix{border-collapse:collapse;width:100%;font-size:14px}
+.matrix th,.matrix td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.matrix th{font-weight:700;white-space:nowrap;width:8em;color:var(--acc)}
+.matrix tr:last-child td,.matrix tr:last-child th{border-bottom:0}
+.empty{color:var(--ink-soft);font-size:14px}
+
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card-top{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.card-top>div{min-width:0;flex:1 1 240px}
+.card h3{margin:0;font-size:17px;display:flex;align-items:center;gap:10px}
+.num{font-family:var(--f-display);font-size:18px;width:32px;height:32px;display:grid;place-items:center;border:1.5px solid var(--grid);color:var(--grid);flex:none}
+.when{margin:2px 0 0;font-size:13px;color:var(--ink-soft)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--code);color:var(--ink-soft);border:1px solid var(--line)}
+.chip.tool{color:var(--acc);border-color:var(--acc);background:transparent}
+.chip.src{font-style:normal}
+.copy{font:inherit;font-size:13px;font-weight:500;background:var(--ink);color:var(--paper);border:0;border-radius:6px;padding:7px 14px;cursor:pointer;white-space:nowrap}
+.copy:hover{opacity:.88}
+.copy:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.copy.done{background:var(--ok);color:#fff}
+.copy.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btns{display:flex;gap:6px;flex-wrap:wrap}
+pre.prompt{margin:0;background:var(--code);border-radius:6px;padding:12px;font-family:var(--f-body);font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;max-height:240px;overflow:auto;color:var(--ink)}
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.game{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.game b{font-size:14px}
+.game p{margin:0;font-size:13px;color:var(--ink-soft)}
+.tip{font-size:12px;color:var(--ink-soft);margin:0}
+.go{font-size:13px;color:var(--acc);text-decoration:none;border:1px solid var(--acc);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.go:hover{background:var(--acc);color:var(--paper)}
+.case{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.case-part{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.case-part h3{margin:0;font-size:15px;color:var(--acc)}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.steps li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 10px;font-size:13px;align-items:start}
+.steps li>a{font-family:var(--f-display);font-size:15px;font-weight:700;color:var(--grid);text-decoration:none;border:1.5px solid var(--grid);text-align:center;padding:2px 0}
+.steps li>a:hover{background:var(--grid);color:var(--paper)}
+.steps li b{display:block;font-size:14px}
+.steps li .chip{grid-column:2;justify-self:start}
+.links{margin:0;padding-left:1.1em;font-size:13px;display:flex;flex-direction:column;gap:6px}
+.links b{margin-right:6px}
+footer{color:var(--ink-soft);font-size:12px;border-top:1px solid var(--line);padding-top:16px;max-width:80ch}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:8px 16px;border-radius:999px;font-size:13px;max-width:calc(100% - 32px)}
+</style>
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+
+<div class="wrap" id="wrap" data-topic="sel">
+  <a href="../" style="align-self:flex-start;font-size:14px;color:var(--ink-soft);text-decoration:none">← 回到「暖心起點：從善開始」中文 SEL 學習站</a>
+  <header>
+    <div class="manuscript" aria-label="跨域 AI 方法卡"><span>跨</span><span>域</span><span>Ａ</span><span>Ｉ</span><span>方</span><span>法</span><span>卡</span></div>
+    <p class="lede">選好學段、議題和參與的領域，再用自己的話寫下單元重點，右邊的 8 張方法卡就會組好可以直接複製的 Prompt。適用國小高年級、國中與高中，各領域老師都能使用。</p>
+  </header>
+
+  <div class="layout">
+    <form class="settings" id="settings" autocomplete="off">
+      <h2>單元設定</h2>
+      <fieldset><legend>學段</legend>
+        <div class="seg">
+          <label><input type="radio" name="stage" id="stage-e" value="e"><span>國小高年級</span></label>
+          <label><input type="radio" name="stage" id="stage-j" value="j" checked><span>國中</span></label>
+          <label><input type="radio" name="stage" id="stage-h" value="h"><span>高中</span></label>
+        </div>
+      </fieldset>
+      <fieldset><legend>議題</legend>
+        <div class="seg">
+          <label><input type="radio" name="topic" id="topic-sel" value="sel" checked><span>SEL 社會情緒學習</span></label>
+          <label><input type="radio" name="topic" id="topic-env" value="env"><span>永續與環境教育</span></label>
+          <label><input type="radio" name="topic" id="topic-custom" value="custom"><span>自訂</span></label>
+        </div>
+      </fieldset>
+      <div class="field" id="customWrap" hidden><label for="customName">自訂議題名稱</label><input id="customName" placeholder="例如：媒體素養、防災教育"></div>
+      <fieldset><legend>參與領域（可複選）</legend><div class="dom" id="domains"></div></fieldset>
+      <div class="field"><label for="unit">單元主題</label><input id="unit"></div>
+      <div class="field"><label for="goals">學習目標（一行一個）</label><textarea id="goals" rows="3"></textarea></div>
+      <div class="field"><label for="concepts">單元重點（用自己的話寫，一行一個）</label><textarea id="concepts" rows="5"></textarea></div>
+      <div class="copyright"><b>版權提醒：</b>請勿貼上教科書課文、教師手冊或出版社題庫。需要教材內容時，請在出版社自己的 AI 平台中操作。這裡只填課綱學習重點和你自己整理的內容。</div>
+      <button type="button" class="ghost" id="resetBtn">回到這個議題的範例</button>
+    </form>
+
+    <div class="main">
+      <section class="brief" id="brief"></section>
+      <section>
+        <div class="sec-head"><div><h2>跨領域對照</h2><p>同一個主題，各領域可以切入的角度。</p></div></div>
+        <div class="matrix-wrap" id="matrix"></div>
+      </section>
+      <section id="caseSec">
+        <div class="sec-head"><div><h2>實踐案例：何止好筆記</h2><p>林英斌老師與 Goodnotes Education 合作設計的 SEL × 視覺藝術圖卡課程。學生的真實情緒在自己的筆記本裡用色彩與造型表達，全程不經過 AI。</p></div><a class="go" href="https://www.youtube.com/playlist?list=PLGpeOK3WuyG8MWjABIN3jljrFkCKbPVB1" target="_blank" rel="noopener">看播放清單 ↗</a></div>
+        <div class="case">
+          <div class="case-part">
+            <h3>第一部分：我的平靜泡泡</h3>
+            <ol class="steps">
+              <li><a href="https://www.youtube.com/watch?v=sCJO3S7QE3c" target="_blank" rel="noopener">01</a><div><b>引導發想</b>用顏色和圖形做一張靜心圖卡；先想一個代表現在感覺的詞語或短句，再參考建議延伸想法。</div><span class="chip tool">自我覺察</span></li>
+              <li><a href="https://www.youtube.com/watch?v=GGEwAR7ShDo" target="_blank" rel="noopener">02</a><div><b>技法：色彩拼圖</b>鉛筆由輕到重做漸層、重疊交叉筆觸；套索加螢幕截圖取出方正色塊，累積自己喜歡的色彩。</div><span class="chip tool">自我管理</span></li>
+              <li><a href="https://www.youtube.com/watch?v=iWr-XWIP0wo" target="_blank" rel="noopener">03</a><div><b>示範創作</b>圓形複製、兩兩配色、拉開明度差，手繪輕柔的手勢與花朵，再大量複製成專屬圖案。重複的動作本身就有靜心效果。</div><span class="chip tool">自我管理</span></li>
+            </ol>
+          </div>
+          <div class="case-part">
+            <h3>第二部分：畫出你的情緒</h3>
+            <ol class="steps">
+              <li><a href="https://www.youtube.com/watch?v=LDMwNJzyMwU" target="_blank" rel="noopener">02-01</a><div><b>情緒臉</b>形狀工具畫圓、螢光筆塗色、畫出五官表情，配上一個情緒字詞，存成自己的「元素」。</div><span class="chip tool">自我覺察</span></li>
+              <li><a href="https://www.youtube.com/watch?v=yKGH9kSKvA8" target="_blank" rel="noopener">02-02</a><div><b>線條與留白</b>用不同線條表現情緒、刻意不填滿，調整圖層前後關係與字詞位置。</div><span class="chip tool">自我覺察</span></li>
+              <li><a href="https://www.youtube.com/watch?v=HtjY7hfOJAA" target="_blank" rel="noopener">02-03</a><div><b>紋理造型</b>iPad 分割畫面，把水泥照片拖進 Goodnotes，用裁切 Freehand 剪出造型，做成有石頭質感的貼圖。</div><span class="chip">技法</span></li>
+              <li><a href="https://www.youtube.com/watch?v=YIdZpMn1zBM" target="_blank" rel="noopener">02-04</a><div><b>從紋理聯想情緒</b>在紋理造型上加表情、改透明度與色彩，有時是抽象的感覺，讓造型「有了新的情緒」。</div><span class="chip tool">自我覺察</span></li>
+              <li><a href="https://www.youtube.com/watch?v=BBcfOfvS15A" target="_blank" rel="noopener">02-05</a><div><b>情緒色彩題庫</b>複製色塊、替字詞換色、把色彩和情緒詞配對，建立自己的情緒色彩題庫，再做成貼圖。</div><span class="chip tool">自我覺察</span></li>
+            </ol>
+          </div>
+          <div class="case-part">
+            <h3>可以和其他領域串接的地方</h3>
+            <ul class="links">
+              <li><b>國語文</b>情緒詞彙的精準度：同一個顏色，可以配上哪些強弱不同的詞？</li>
+              <li><b>自然科學</b>色彩的明度與彩度、光與顏色的關係</li>
+              <li><b>數學</b>圓形的複製、對稱與重複排列成圖案</li>
+              <li><b>綜合活動</b>把情緒貼圖用在溝通，延伸到正向的數位社交</li>
+            </ul>
+            <h3>AI 可以補在哪裡（不碰學生真實情緒）</h3>
+            <ul class="links">
+              <li><b>④ 遊戲化練習</b>用 Arcade 做「情緒詞彙 ↔ 情境」配對，擴充學生的情緒詞庫</li>
+              <li><b>⑥ 鷹架機器人</b>以虛構角色的情境，練習辨識他人的情緒（社會覺察）</li>
+              <li><b>⑧ 依規準給回饋</b>只針對學生的「創作自述」給回饋，例如色彩選擇的理由，不評論情緒本身</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="sec-head"><div><h2>方法卡</h2><p>建議從 ① 開始設計整個單元，再挑需要的方法使用。</p></div></div>
+        <div class="cards" id="cards"></div>
+      </section>
+    </div>
+  </div>
+
+  <footer>SEL 架構參考 CASEL 五大能力；環境教育主題依十二年國教議題融入說明手冊。「何止好筆記」圖卡為林英斌老師與 Goodnotes Education 合作設計。</footer>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const DOMAINS=["國語文","英語文","數學","自然科學","社會","藝術","健康與體育","綜合活動","科技"];
+const STAGES={
+  e:{label:"國小高年級",full:"國小高年級（第三學習階段）",verbs:"說明、比較、舉例、分類",q:"問題以生活情境為主，要具體，一次只處理一個概念",read:"用詞淺白、句子簡短"},
+  j:{label:"國中",full:"國中（第四學習階段）",verbs:"分析、比較、評估、提出證據與立場",q:"可以加入兩難情境、多重觀點與資料判讀，形式接近素養題組",read:"可以使用學科用語，但要附上簡短說明"},
+  h:{label:"高中",full:"高中（第五學習階段）",verbs:"分析、評估、綜合、批判與建構論點",q:"使用開放式問題、跨文本與資料論證，要求學生提出有依據的立場並回應不同觀點",read:"可以使用學科用語與較完整的論述"}
+};
+const THEMES={
+  sel:{name:"社會情緒學習 SEL",
+    frame:"CASEL 五大能力：自我覺察、自我管理、社會覺察、人際技巧、負責任的決策",
+    link:"可對應：綜合活動、健康教育；生命教育、品德教育議題；核心素養「身心素質與自我精進」「人際關係與團隊合作」",
+    unit:"面對衝突：同學之間的誤會",
+    goals:"能辨識衝突中雙方的情緒與需求\n能提出至少兩種化解衝突的做法，並評估可能的後果",
+    concepts:"情緒有不同的強度，可以用詞彙精準命名\n同一件事，不同的人會有不同的感受與解讀\n衝突解決步驟：冷靜、說出感受、聆聽對方、一起想辦法、選擇並嘗試",
+    organizer:"情緒冰山圖（水面上是行為，水面下是感受、想法與需求）",
+    scenario:"以虛構角色設計的人際衝突情境",
+    safety:"情境中的人物都是虛構的。不要詢問學生本人或同學的真實經驗與個人資料。如果學生提到自己受到傷害或想傷害自己，請溫和地請他立刻告訴信任的老師或家長，並停止這段討論。",
+    questions:["情境裡的每個角色，可能有什麼感受？請用一個精準的情緒詞說說看。","他們為什麼會有這種感受？底下的想法或需求可能是什麼？","如果你是其中一個角色，可以怎麼說出自己的感受，又不傷害對方？","請想出兩種化解的做法，各會帶來什麼結果？","你會選哪一種？為什麼？"],
+    createRole:"表達與同理",
+    create:"寫一封給情境中虛構角色的建議信；或用色彩、線條表現一種情緒，並寫一段創作自述",
+    rubric:["能辨識並精準命名情緒","能從他人的角度理解感受與需求","提出的做法尊重雙方，而且可行","能清楚說明選擇的理由"],
+    games:[["matching","配對","情緒詞彙 ↔ 情境描述，例如「失望」配上「準備很久的比賽被取消」"],["sorting","分類","把情緒調節的方法分成「有幫助」和「沒幫助」兩類"],["sequencing","排序","衝突解決的五個步驟"]],
+    cautions:["只使用虛構角色和情境，不要請學生向 AI 透露自己或同學的真實狀況、姓名或心事。","學生真實的情緒表達，放在 Goodnotes 這類個人筆記空間，用色彩、造型和文字完成，不交給 AI（參考下方「何止好筆記」案例）。","AI 不是輔導老師。學生出現危機訊號時，請交由導師與輔導室處理。","聊天機器人的提示詞要寫明：不診斷、不貼標籤；遇到自我傷害等內容時，請學生找信任的大人。","學生使用 AI 服務前，先確認平台的年齡規定，並依學校規定取得家長同意。"],
+    angles:{"國語文":"從小說或散文人物的對話，推論角色的情緒與動機","英語文":"學習情緒詞彙與表達感受的句型（I feel… because…）","數學":"小組解題時的分工與溝通，以及面對挫折時的解題心態","自然科學":"認識壓力反應的生理機制，例如心跳與呼吸的變化","社會":"比較不同文化表達情緒、處理衝突的方式","藝術":"用色彩、線條、構圖表現情緒，賞析作品中的情感","健康與體育":"壓力調適，以及團隊運動中的合作與運動家精神","綜合活動":"人際關係經營與衝突處理演練","科技":"辨識網路溝通的誤會與網路霸凌，並學習應對方法"},
+    defaultDomains:["國語文","藝術","綜合活動"]},
+  env:{name:"永續與環境教育",
+    frame:"環境教育議題五個學習主題：環境倫理、永續發展、氣候變遷、災害防救、能源資源永續利用；可對應聯合國永續發展目標 SDGs",
+    link:"可對應：環境教育、能源教育、海洋教育議題；核心素養「系統思考與解決問題」「道德實踐與公民意識」",
+    unit:"校園減塑行動",
+    goals:"能說明一次性塑膠對環境的影響\n能根據校園調查資料，提出一項可行的減塑行動",
+    concepts:"塑膠在自然環境中很難分解，會碎裂成塑膠微粒\n減量比回收更優先：先少用，再重複使用，最後才是回收\n個人行動與制度設計都會影響結果",
+    organizer:"問題樹（樹根是原因，樹幹是問題，樹枝是影響）",
+    scenario:"包含不同利害關係人（學生、福利社、家長、清潔人員）的校園情境",
+    safety:"如果討論需要用到數據，請提醒學生自己到政府或研究機構的原始資料查證，你不要自己編造數字。",
+    questions:["這個情境中有哪些利害關係人？他們各自在意什麼？","問題的原因有哪些？請分成「個人」和「制度」兩類。","需要哪些資料或證據，才能判斷哪個做法比較有效？","請提出一個你做得到的行動，並說明它可能的好處與限制。","如果要說服持反對意見的人，你會怎麼說？"],
+    createRole:"永續行動",
+    create:"擬一份校園永續行動提案；或設計一張宣導海報，並說明設計理由",
+    rubric:["問題描述有依據（資料或實地觀察）","能分析原因與影響之間的關係","提出的行動具體可行","能說明行動的限制與改進方向"],
+    games:[["sorting","分類","把日常物品分成「可以減量」「可以重複使用」「可以回收」"],["sequencing","排序","塑膠從製造、使用到成為海洋垃圾的過程"],["crossword","填字","本單元的環境概念詞彙"]],
+    cautions:["AI 給的數據和統計常常出錯，所有數字都要請學生回到原始來源（例如環境部、政府資料開放平臺）查證。","提醒學生分辨事實與立場，AI 的建議也可能有偏向。","可以順帶討論 AI 本身的耗電與碳排放，這也是永續議題的一部分。","避免只談末日情境，把重點放在學生做得到的行動，以降低環境焦慮。"],
+    angles:{"國語文":"閱讀環境議題報導，寫論說文表達立場","英語文":"閱讀國際環境新聞，用英文製作永續行動宣導","數學":"統計校園垃圾量、計算碳足跡，並製作統計圖表","自然科學":"塑膠分解，以及污染物在食物鏈中的累積","社會":"環境政策、利害關係人與公民參與","藝術":"回收材料創作、環境議題海報與公共藝術","健康與體育":"環境污染對健康的影響，以及戶外教育","綜合活動":"規劃並執行校園或社區的永續服務行動","科技":"設計減廢產品原型或環境監測裝置"},
+    defaultDomains:["自然科學","數學","藝術"]},
+  custom:{name:"自訂議題",frame:"",link:"",unit:"",goals:"",concepts:"",
+    organizer:"概念圖（中心主題向外延伸到子概念與例子）",
+    scenario:"和主題相關的生活情境",
+    safety:"不要詢問學生的個人資料。提到數據時，提醒學生查證原始來源。",
+    questions:["這個情境裡發生了什麼事？你注意到哪些重點？","為什麼會這樣？可能的原因有哪些？","不同的人會怎麼看這件事？","你會怎麼做？為什麼？","你的做法可能帶來什麼結果？"],
+    createRole:"表達",
+    create:"完成一份能呈現單元學習成果的作品",
+    rubric:["內容正確，而且有依據","能說明概念之間的關係","表達清楚、有條理","能反思並提出改進"],
+    games:[["multiple-choice-quiz","選擇題","單元重點概念"],["matching","配對","概念詞 ↔ 說明"],["sequencing","排序","單元中的流程或步驟"]],
+    cautions:["請勿貼上教科書或出版社內容。","AI 產出的事實與數據要查證。","不要讓學生向 AI 透露個人資料。"],
+    angles:{},defaultDomains:[]}
+};
+const KEY="cross-domain-ai-cards-v1";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+$("domains").innerHTML=DOMAINS.map((d,i)=>`<label><input type="checkbox" id="dom-${i}" value="${d}"><span>${d}</span></label>`).join("");
+
+function state(){
+  return {
+    stage:document.querySelector('input[name=stage]:checked').value,
+    topic:document.querySelector('input[name=topic]:checked').value,
+    customName:$("customName").value,
+    domains:[...document.querySelectorAll('#domains input:checked')].map(x=>x.value),
+    unit:$("unit").value,goals:$("goals").value,concepts:$("concepts").value
+  };
+}
+function apply(s){
+  $("stage-"+s.stage).checked=true;$("topic-"+s.topic).checked=true;
+  $("customName").value=s.customName||"";
+  document.querySelectorAll('#domains input').forEach(x=>x.checked=s.domains.includes(x.value));
+  $("unit").value=s.unit;$("goals").value=s.goals;$("concepts").value=s.concepts;
+}
+function themeDefaults(t,stage){const T=THEMES[t];return {stage,topic:t,customName:"",domains:[...T.defaultDomains],unit:T.unit,goals:T.goals,concepts:T.concepts}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state()))}catch(e){}}
+
+function ctx(){
+  const s=state(),S=STAGES[s.stage],T=THEMES[s.topic];
+  const lines=x=>x.split("\n").map(v=>v.trim()).filter(Boolean);
+  const themeName=s.topic==="custom"?(s.customName.trim()||"自訂議題"):T.name;
+  return {s,S,T,themeName,
+    unit:s.unit.trim()||"（請填單元主題）",
+    goals:lines(s.goals).map(g=>"・"+g).join("\n")||"・（請填學習目標）",
+    concepts:lines(s.concepts).map(g=>"・"+g).join("\n")||"・（請填單元重點）",
+    conceptsInline:lines(s.concepts).join("；"),
+    doms:s.domains.length?s.domains.join("、"):"（請選擇參與領域）"};
+}
+
+function cardsFor(c){
+  const {S,T,themeName,unit,goals,concepts,doms}=c;
+  const noFacts="只使用我提供的重點，不要自行加入我沒有提供的事實或數據。";
+  return [
+  {title:"單元流程設計",when:"開始備課時先用：讓 AI 依六個學習階段排出跨領域的活動。",tools:["ChatGPT","Gemini"],src:"讀懂記想寫改",
+   prompt:`請幫我設計一個以「${unit}」為主題的跨領域單元。\n對象：${S.full}\n參與領域：${doms}\n議題：${themeName}${T.frame?`\n議題架構：${T.frame}`:""}\n學習目標：\n${goals}\n單元重點：\n${concepts}\n\n請依「接觸 → 理解 → 記憶 → 思考 → 表達 → 修正」六個階段安排活動。每個階段請寫出：\n1. 各領域負責的活動\n2. 可以使用的 AI 工具（例如 ChatGPT、Gemini、Padlet Arcade）\n3. 學生的產出\n4. 老師要注意的地方\n最後列出各領域共用的評量規準。請用表格呈現，問題設計使用「${S.verbs}」這類層次的動詞。`},
+  {title:"重點轉成圖像講義",when:"把你整理的重點，變成一張學生看得懂的視覺講義。",tools:["ChatGPT","Gemini"],src:"分析教材",
+   prompt:`請把以下我整理的單元重點，設計成一張 A4 直式圖像講義，給${S.full}的學生使用。\n單元主題：${unit}\n學習目標：\n${goals}\n重點：\n${concepts}\n\n要求：\n・用圖示、箭頭和分區，呈現概念之間的關係\n・${S.read}\n・使用繁體中文\n・${noFacts}`},
+  {title:"學生版與教師版學習單",when:"接在講義後面，在同一個對話裡使用。",tools:["ChatGPT","Gemini"],src:"學習單與解答",
+   prompt:`請根據上面的講義，設計一張學生學習單，用黑白線稿呈現，方便列印。\n・題目使用「${S.verbs}」這類動詞\n・${S.q}\n・最後一題請學生連結自己的生活經驗，但不要求寫出個人隱私\n\n完成後，再生成一張版面完全相同、填好參考答案的教師版。`},
+  {title:"結構挖空",when:"用圖像組織圖當鷹架，讓學生自己補上關鍵詞。",tools:["ChatGPT","Gemini"],src:"心智圖挖空",
+   prompt:`請用「${T.organizer}」的架構，整理「${unit}」的重點，做成給${S.full}學生的學習單：保留架構，把關鍵詞挖空，讓學生自己填寫。請用黑白線稿生成，另外提供一份教師版答案。\n重點：\n${concepts}\n${noFacts}`},
+  {title:"遊戲化練習",when:"用 Padlet Arcade 做成遊戲，讓學生在課堂中練習或複習。",tools:["Padlet Arcade"],src:"ARCADE 遊戲",games:true},
+  {title:"依序提問的鷹架機器人",when:"把提示詞設定成聊天機器人，讓 AI 一次問一題，引導學生思考。",tools:["Gemini Gem","ChatGPT GPTs"],src:"心智圖鷹架提問",
+   prompt:`🧑‍🏫 角色\n你是${S.full}學生的學習夥伴，單元是「${unit}」，議題是「${themeName}」。你用提問引導學生思考，不直接給答案。\n\n📌 情境\n請先用 3 到 5 句話，描述一個${T.scenario}。\n${T.safety}\n\n🧭 提問順序（一次只問一題，等學生回答後才問下一題）\n${T.questions.map((q,i)=>`${i+1}. ${q}`).join("\n")}\n\n🤝 互動原則\n・學生回答太短時，追問「為什麼？」「你從哪裡看出來？」\n・不評斷對錯，請學生說明理由與依據\n・${S.q}\n・全程使用繁體中文，用詞適合${S.label}學生`},
+  {title:"創作與行動教練",when:"引導學生一步步完成作品，AI 不代寫。",tools:["Gemini Gem","ChatGPT GPTs"],src:"童詩仿寫教練",
+   prompt:`🧑‍🏫 角色\n你是${S.full}學生的${T.createRole}教練，單元是「${unit}」。你透過提問，協助學生自己完成作品，絕對不替學生寫。\n\n🎯 任務\n${T.create}\n\n🧙 引導步驟（一次只問一個問題，等學生回答）\n1. 請學生說出想表達的對象或主題\n2. 收集素材：觀察到什麼、感受到什麼、查到什麼資料\n3. 組織：先寫什麼、再寫什麼，為什麼這樣安排\n4. 完成初稿：只給句型或方向的提示，不直接給句子\n5. 自我檢核：請學生對照學習目標，找出最滿意和最想修改的地方\n\n學習目標：\n${goals}\n\n🤝 互動原則\n・素材不夠時繼續提問，不要替學生補內容\n・多給具體的鼓勵，例如「這個細節讓畫面很清楚」\n・${T.safety}\n・全程使用繁體中文，用詞適合${S.label}學生`},
+  {title:"依規準給回饋",when:"學生交出作品後使用，給具體、可以照著修改的回饋。",tools:["Padlet","Gemini Gem","ChatGPT GPTs"],src:"AI 寫作回饋",
+   prompt:`你是${S.full}的老師。請依以下規準，對學生的作品給回饋。\n單元：${unit}\n學習目標：\n${goals}\n\n規準：\n${T.rubric.map((r,i)=>`${i+1}. ${r}`).join("\n")}\n\n回饋方式：\n・每個規準先說一個做得好的地方，再給一個具體的修改建議\n・不要直接改寫學生的作品，用提問引導學生自己修改\n・語氣溫暖，用詞適合${S.label}學生\n・最後請學生選一個建議，寫下打算怎麼修改`}
+  ];
+}
+
+function gamePrompt(c,g){return `請以「${c.unit}」為主題，為${c.S.full}學生製作「${g[1]}」活動：${g[2]}。\n內容依據以下重點：\n${c.concepts}\n請使用繁體中文。`}
+function claudeAsk(c,g){return `請幫我用 Padlet Arcade 建立一個「${g[1]}」（${g[0]}）活動。主題：${c.unit}；對象：${c.S.full}；內容：${g[2]}；依據的重點：${c.conceptsInline||"（請補上）"}。`}
+
+let current={cards:[],c:null};
+function render(){
+  const c=ctx();current.c=c;
+  $("wrap").dataset.topic=c.s.topic;
+  $("customWrap").hidden=c.s.topic!=="custom";
+  $("caseSec").hidden=c.s.topic!=="sel";
+  const T=c.T;
+  $("brief").innerHTML=`<h2>${esc(c.themeName)}・${esc(c.S.label)}</h2>`
+    +(T.frame?`<p>${esc(T.frame)}</p>`:"")
+    +(T.link?`<p class="meta">${esc(T.link)}</p>`:"")
+    +`<p class="meta">${esc(c.S.full)}的提問層次：${esc(c.S.verbs)}。${esc(c.S.q)}。</p>`
+    +`<h3>使用守則</h3><ul>${T.cautions.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  const doms=c.s.domains;
+  $("matrix").innerHTML=doms.length
+    ?`<table class="matrix"><tbody>${doms.map(d=>`<tr><th scope="row">${d}</th><td>${esc(T.angles[d]||"從本領域的角度切入主題，請自行補充")}</td></tr>`).join("")}</tbody></table>`
+    :`<p class="empty">在左邊勾選參與的領域，這裡會列出各領域可以切入的角度。</p>`;
+  current.cards=cardsFor(c);
+  $("cards").innerHTML=current.cards.map((k,i)=>{
+    const chips=k.tools.map(t=>`<span class="chip tool">${t}</span>`).join("")+``;
+    let body;
+    if(k.games){
+      body=`<div class="games">${T.games.map((g,j)=>`<div class="game"><b>${g[1]}</b><p>${esc(g[2])}</p><div class="btns"><button type="button" class="copy" data-g="${j}" data-m="arcade">複製 Arcade Prompt</button><button type="button" class="copy alt" data-g="${j}" data-m="claude">複製給 AI 助理的請求</button></div></div>`).join("")}</div><p class="tip">💡 如果你使用的 AI 助理（例如 Claude）已經連接你的 Padlet 帳號，可以貼上「給 AI 助理的請求」，由它直接建立遊戲並回傳連結。</p>`;
+    }else{
+      body=`<pre class="prompt">${esc(k.prompt)}</pre>`;
+    }
+    const btn=k.games?"":`<button type="button" class="copy" data-i="${i}">複製 Prompt</button>`;
+    return `<article class="card"><div class="card-top"><div><h3><span class="num">${"①②③④⑤⑥⑦⑧"[i]}</span>${k.title}</h3><p class="when">${k.when}</p></div>${btn}</div><div class="chips">${chips}</div>${body}</article>`;
+  }).join("");
+}
+
+let tt;
+function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2000)}
+$("cards").addEventListener("click",e=>{
+  const b=e.target.closest(".copy");if(!b)return;
+  let text;
+  if(b.dataset.g!==undefined){const g=current.c.T.games[+b.dataset.g];text=b.dataset.m==="claude"?claudeAsk(current.c,g):gamePrompt(current.c,g)}
+  else text=current.cards[+b.dataset.i].prompt;
+  const orig=b.textContent;
+  const done=()=>{b.classList.add("done");b.textContent="✓ 已複製";toast("已複製，貼到工具裡即可");setTimeout(()=>{b.classList.remove("done");b.textContent=orig},1600)};
+  const fail=()=>{const pre=b.closest(".card").querySelector("pre");if(pre){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("已選取文字，請按 Ctrl+C 複製")}else toast("無法自動複製，請換一個瀏覽器試試")};
+  try{navigator.clipboard.writeText(text).then(done,fail)}catch(err){fail()}
+});
+
+let prevTopic="sel";
+$("settings").addEventListener("change",e=>{
+  if(e.target.name==="topic"){
+    const s=state(),old=THEMES[prevTopic];
+    const untouched=(s.unit===old.unit&&s.goals===old.goals&&s.concepts===old.concepts)||(!s.unit&&!s.goals&&!s.concepts);
+    if(untouched){const d=themeDefaults(s.topic,s.stage);apply(d)}
+    prevTopic=s.topic;
+  }
+  render();save();
+});
+$("settings").addEventListener("input",()=>{render();save()});
+$("resetBtn").addEventListener("click",()=>{const s=state();apply(themeDefaults(s.topic,s.stage));render();save()});
+
+(function init(){
+  let saved=null;try{saved=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}
+  apply(saved&&THEMES[saved.topic]?saved:themeDefaults("sel","j"));
+  prevTopic=state().topic;render();
+})();
+</script>
+</body>
+</html>
