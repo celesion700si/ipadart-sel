@@ -10,153 +10,140 @@
 <meta property="og:image" content="https://sel.ipadart.net/img/cover.png">
 <meta property="og:url" content="https://sel.ipadart.net/">
 <link rel="icon" href="img/cover.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
 <style>
-/* Palette follows the card set: Goodnotes navy, warm yellow arcs, white rounded panels. Single deliberate light look. */
+/* Edu Spectrum (林英斌 design system): canvas/surface/night grounds, system type (SF Pro / PingFang TC), one Spotlight per headline, 28px cards, pill buttons. Series colour for this site: spotlight-green (成長、社群). */
 :root{
-  --navy:#20233f;
-  --navy-2:#2c3052;
-  --yellow:#ffe15a;
-  --paper:#f6f5f0;
-  --white:#ffffff;
-  --ink:#1d2033;
-  --ink-soft:#5d6074;
-  --line:#e2e0d8;
-  --tag-aw:#d6542f;   /* 自我覺察 */
-  --tag-mg:#2f7f6b;   /* 自我管理 */
-  --tag-so:#3762b8;   /* 社會覺察 */
-  --tag-re:#a0469a;   /* 人際技巧 */
-  --tag-de:#8a6a10;   /* 負責任的決策 */
-  --f-display:"LXGW WenKai TC","Kaiti TC","DFKai-SB",serif;
-  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --canvas:#f5f5f7;--surface:#ffffff;--surface-sunken:#e8e8ed;--hairline:#d2d2d7;
+  --ink:#1d1d1f;--ink-muted:#6e6e73;--link:#0066cc;
+  --action:#0071e3;--on-action:#ffffff;
+  --night:#0b0b0c;--on-night:#ffffff;--on-night-muted:#c7c7cc;--link-on-night:#2997ff;
+  --series:#1e8a3e;--series-end:#2fa65a;--series-on-night:#4cd471;--on-series:#ffffff;
+  --shadow-lift:0 4px 24px rgba(0,0,0,.08);
+  --r-sm:8px;--r-md:18px;--r-card:28px;--r-pill:980px;
+  --f-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang TC","Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+  --f-sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC","Helvetica Neue",Arial,sans-serif;
   color-scheme:light;
 }
+@media (prefers-color-scheme:dark){:root{
+  --canvas:#000000;--surface:#1c1c1e;--surface-sunken:#2c2c2e;--hairline:#424245;
+  --ink:#f5f5f7;--ink-muted:#a1a1a6;--link:#2997ff;
+  --series:#4cd471;--series-end:#7be495;--on-series:#0b0b0c;
+  --shadow-lift:0 4px 24px rgba(0,0,0,.5);
+  color-scheme:dark}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--f-sans);font-size:17px;line-height:28px}
 img{max-width:100%;display:block}
-a{color:inherit}
-.wrap{max-width:1160px;margin:0 auto;padding-inline:20px}
-:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+a{color:var(--link)}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px}
+:focus-visible{outline:3px solid var(--action);outline-offset:2px}
+.spot{background:linear-gradient(90deg,var(--series),var(--series-end));-webkit-background-clip:text;background-clip:text;color:transparent}
+.on-night .spot{background:none;color:var(--series-on-night)}
 
-/* top bar */
-.bar{background:var(--navy);color:var(--white);position:sticky;top:0;z-index:20}
-.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;flex-wrap:wrap;padding-block:6px}
-.brand{font-weight:700;text-decoration:none;letter-spacing:.04em;display:flex;align-items:center;gap:10px}
-.brand small{font-weight:400;opacity:.7;font-size:13px}
-.nav{display:flex;gap:4px;flex-wrap:wrap}
-.nav a{text-decoration:none;font-size:14px;padding:6px 12px;border-radius:999px}
-.nav a:hover{background:var(--navy-2)}
-.nav a.out{border:1px solid rgba(255,255,255,.35)}
+/* announcement-style top bar */
+.bar{background:var(--night);color:var(--on-night);position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;flex-wrap:wrap;padding-block:6px}
+.brand{font-weight:600;font-size:15px;text-decoration:none;color:var(--on-night)}
+.brand small{font-weight:400;color:var(--on-night-muted);margin-left:8px;font-size:13px}
+.nav{display:flex;gap:2px;flex-wrap:wrap}
+.nav a{text-decoration:none;font-size:14px;padding:6px 12px;border-radius:var(--r-pill);color:var(--on-night)}
+.nav a:hover{background:#1f1f22}
+.nav a.out{color:var(--link-on-night)}
 
-/* hero */
-.hero{background:var(--navy);color:var(--white);position:relative;overflow:hidden}
-.hero::before,.hero::after{content:"";position:absolute;border:26px solid var(--yellow);border-radius:50%;pointer-events:none}
-.hero::before{width:520px;height:520px;right:-180px;top:-260px}
-.hero::after{width:420px;height:420px;left:-230px;bottom:-300px}
-@media (max-width:820px){
-  .hero::before{width:260px;height:260px;border-width:16px;right:-150px;top:-170px}
-  .hero::after{display:none}
-}
-.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center;padding-block:56px 64px}
-@media (max-width:820px){.hero .wrap{grid-template-columns:minmax(0,1fr);padding-block:40px 48px}}
-.eyebrow{display:inline-block;font-size:13px;letter-spacing:.12em;background:var(--yellow);color:var(--navy);padding:3px 12px;border-radius:999px;font-weight:700}
-.hero h1{font-family:var(--f-display);font-size:clamp(40px,7vw,68px);line-height:1.15;margin:16px 0 12px;text-wrap:balance}
-.hero p.lead{font-size:18px;max-width:34em;margin:0 0 8px;opacity:.92}
-.hero p.by{font-size:14px;opacity:.75;margin:0 0 24px}
-.entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-@media (max-width:520px){.entries{grid-template-columns:minmax(0,1fr)}}
-.entry{background:var(--white);color:var(--navy);text-decoration:none;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;transition:transform .15s}
-.entry:hover{transform:translateY(-2px)}
-.entry b{font-size:16px}
-.entry span{font-size:13px;color:var(--ink-soft);line-height:1.5}
-.entry i{font-style:normal;font-family:var(--f-display);font-size:22px;color:#c99a00}
-.hero-card{border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);transform:rotate(2deg);max-width:420px;justify-self:center}
+/* hero on night */
+.hero{background:var(--night);color:var(--on-night);text-align:center}
+.hero .wrap{padding-block:clamp(72px,12vw,160px) clamp(64px,10vw,120px);display:flex;flex-direction:column;align-items:center;gap:0}
+.label{display:inline-block;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.01em;padding:4px 12px;border-radius:var(--r-pill);background:var(--series);color:var(--on-series)}
+.hero .label{background:var(--series-on-night);color:#0b0b0c}
+.hero h1{font-family:var(--f-display);font-weight:700;font-size:clamp(44px,8.5vw,80px);line-height:1.06;letter-spacing:-.015em;margin:20px 0 16px;text-wrap:balance}
+.hero .lead{font-size:21px;line-height:34px;color:var(--on-night-muted);max-width:30em;margin:0 0 8px}
+.hero .by{font-size:14px;line-height:20px;color:var(--on-night-muted);margin:0 0 40px}
+.entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;width:100%;max-width:880px;text-align:left}
+@media (max-width:680px){.entries{grid-template-columns:minmax(0,1fr)}}
+.entry{background:#1c1c1e;color:var(--on-night);text-decoration:none;border-radius:var(--r-md);padding:20px 22px;display:flex;flex-direction:column;gap:4px;transition:background .15s}
+.entry:hover{background:#2c2c2e}
+.entry b{font-size:19px;line-height:27px;font-weight:600}
+.entry span{font-size:14px;line-height:20px;color:var(--on-night-muted)}
+.entry em{font-style:normal;font-size:14px;color:var(--link-on-night);margin-top:6px}
 
-/* how-to strip */
-.how{background:var(--white);border-bottom:1px solid var(--line)}
-.how .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-block:28px}
-@media (max-width:720px){.how .wrap{grid-template-columns:minmax(0,1fr)}}
-.how div{display:flex;gap:12px;align-items:flex-start}
-.how .n{font-family:var(--f-display);font-size:28px;line-height:1;color:var(--navy);background:var(--yellow);border-radius:50%;width:44px;height:44px;flex:none;display:grid;place-items:center}
-.how b{display:block}
-.how p{margin:0;font-size:14px;color:var(--ink-soft)}
+/* how strip */
+.how{padding-block:64px 0}
+.how .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;background:var(--surface);border-radius:var(--r-card);padding:40px 48px}
+@media (max-width:760px){.how .grid3{grid-template-columns:minmax(0,1fr);padding:28px 24px}}
+.how .n{font-family:var(--f-display);font-weight:700;font-size:32px;line-height:40px;display:block}
+.how b{display:block;font-size:19px;line-height:27px;font-weight:600;margin-top:4px}
+.how p{margin:4px 0 0;font-size:14px;line-height:20px;color:var(--ink-muted)}
 
 /* sections */
-section{padding-block:56px}
-.sec-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:22px}
-.sec-head h2{font-family:var(--f-display);font-size:clamp(30px,4.5vw,42px);margin:0;line-height:1.2;color:var(--navy)}
-.sec-head p{margin:4px 0 0;color:var(--ink-soft);max-width:44em}
+section{padding-block:96px}
+.sec-head{text-align:center;margin-bottom:64px}
+.sec-head h2{font-family:var(--f-display);font-weight:700;font-size:clamp(36px,6vw,56px);line-height:1.08;letter-spacing:-.005em;margin:0;text-wrap:balance}
+.sec-head p{margin:16px auto 0;font-size:21px;line-height:34px;color:var(--ink-muted);max-width:32em}
+.sec-head .more-link{display:inline-block;margin-top:16px;text-decoration:none}
 
-/* filter */
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
-.filters button{font:inherit;font-size:14px;border:1.5px solid var(--navy);background:transparent;color:var(--navy);border-radius:999px;padding:6px 14px;cursor:pointer}
-.filters button[aria-pressed="true"]{background:var(--navy);color:var(--white)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+.filters button{font:inherit;font-size:14px;font-weight:600;border:0;background:var(--surface);color:var(--ink);border-radius:var(--r-pill);padding:8px 16px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--canvas)}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-.act{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
-.act .shot{all:unset;cursor:zoom-in;display:block;background:var(--navy)}
-.act .shot img{aspect-ratio:1;object-fit:cover;width:100%}
-.act .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
-.tag{align-self:flex-start;font-size:12px;font-weight:700;color:var(--white);border-radius:999px;padding:2px 10px;letter-spacing:.04em}
-.tag.aw{background:var(--tag-aw)}.tag.mg{background:var(--tag-mg)}.tag.so{background:var(--tag-so)}.tag.re{background:var(--tag-re)}.tag.de{background:var(--tag-de)}
-.act h3{margin:0;font-size:20px;color:var(--navy)}
-.act .goal{margin:0;font-size:14px;color:var(--ink-soft)}
-.act details{font-size:14px;border-top:1px dashed var(--line);padding-top:8px}
-.act summary{cursor:pointer;font-weight:500;color:var(--navy)}
-.act ol{margin:8px 0;padding-left:1.3em}
-.act .tip{background:var(--paper);border-radius:10px;padding:8px 12px;margin:6px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.act{background:var(--surface);border-radius:var(--r-card);overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:box-shadow .2s}
+.act:hover{box-shadow:var(--shadow-lift)}
+.act .shot{all:unset;cursor:zoom-in;display:block;padding:24px 24px 0}
+.act .shot img{aspect-ratio:1;object-fit:cover;width:100%;border-radius:var(--r-md)}
+.act .body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:12px;flex:1}
+.tag{align-self:flex-start}
+.act h3{margin:0;font-family:var(--f-display);font-weight:700;font-size:26px;line-height:34px}
+.act .goal{margin:0;color:var(--ink-muted);font-size:17px;line-height:28px}
+.act details{font-size:15px;line-height:24px;border-top:1px solid var(--hairline);padding-top:12px}
+.act summary{cursor:pointer;font-weight:600;color:var(--link)}
+.act ol{margin:10px 0;padding-left:1.3em}
+.act .tip{background:var(--surface-sunken);border-radius:var(--r-sm);padding:10px 14px;margin:8px 0 0;font-size:14px;line-height:22px}
 .act .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:4px}
-.btn{font:inherit;font-size:13px;font-weight:500;text-decoration:none;border-radius:999px;padding:7px 14px;border:1.5px solid var(--navy);color:var(--navy);background:var(--white);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-.btn.solid{background:var(--navy);color:var(--white)}
-.btn:hover{background:var(--yellow);color:var(--navy);border-color:var(--navy)}
-.thumbs{display:flex;gap:6px}
-.thumbs button{all:unset;cursor:zoom-in;width:52px;height:52px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.btn{font:inherit;font-size:14px;font-weight:600;text-decoration:none;border-radius:var(--r-pill);padding:8px 16px;border:0;cursor:pointer;display:inline-flex;align-items:center;background:var(--surface-sunken);color:var(--ink)}
+.btn.solid{background:var(--action);color:var(--on-action)}
+.btn:hover{filter:brightness(.95)}
+.thumbs{display:flex;gap:8px}
+.thumbs button{all:unset;cursor:zoom-in;width:56px;height:56px;border-radius:var(--r-sm);overflow:hidden}
 .thumbs img{width:100%;height:100%;object-fit:cover}
 
-/* videos */
-.videos{background:var(--navy);color:var(--white)}
-.videos .sec-head h2{color:var(--white)}
-.videos .sec-head p{color:rgba(255,255,255,.75)}
-.series{margin-bottom:32px}
-.series h3{font-family:var(--f-display);font-size:24px;margin:0 0 4px;color:var(--yellow)}
-.series>p{margin:0 0 14px;color:rgba(255,255,255,.75);font-size:14px}
-.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
-.vid{background:var(--navy-2);border-radius:12px;overflow:hidden;min-width:0}
+/* videos on night */
+.videos{background:var(--night);color:var(--on-night)}
+.videos .sec-head p{color:var(--on-night-muted)}
+.videos .sec-head .more-link{color:var(--link-on-night)}
+.series{margin-bottom:56px}
+.series:last-child{margin-bottom:0}
+.series h3{font-family:var(--f-display);font-weight:700;font-size:32px;line-height:40px;margin:0 0 4px}
+.series>p{margin:0 0 20px;color:var(--on-night-muted);font-size:14px;line-height:20px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.vid{background:#1c1c1e;border-radius:var(--r-md);overflow:hidden;min-width:0}
 .vid .frame{position:relative;aspect-ratio:16/9;background:#000}
 .vid .frame button{all:unset;cursor:pointer;position:absolute;inset:0;display:block}
 .vid .frame img{width:100%;height:100%;object-fit:cover;opacity:.85}
-.vid .frame .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:var(--yellow);display:grid;place-items:center}
-.vid .frame .play::after{content:"";border-left:18px solid var(--navy);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.vid .frame .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center}
+.vid .frame .play::after{content:"";border-left:18px solid #0b0b0c;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
 .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.vid .cap{padding:10px 12px;font-size:14px}
-.vid .cap b{display:block;color:var(--yellow);font-size:12px;letter-spacing:.08em}
+.vid .cap{padding:12px 16px 16px;font-size:15px;line-height:22px}
+.vid .cap b{display:block;color:var(--series-on-night);font-size:12px;line-height:16px;font-weight:600;letter-spacing:.01em;margin-bottom:2px}
 
 /* more */
-.more{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.more{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 @media (max-width:860px){.more{grid-template-columns:minmax(0,1fr)}}
-.more a{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px;text-decoration:none;display:flex;flex-direction:column;gap:8px}
-.more a:hover{border-color:var(--navy)}
-.more .k{font-size:12px;letter-spacing:.1em;color:var(--ink-soft);font-weight:700}
-.more b{font-family:var(--f-display);font-size:24px;color:var(--navy)}
-.more p{margin:0;font-size:14px;color:var(--ink-soft)}
-.more .go{margin-top:auto;font-weight:700;color:var(--navy)}
-.more a.feature{background:var(--yellow);border-color:var(--yellow)}
-.more a.feature p,.more a.feature .k{color:var(--navy)}
+.more a{background:var(--surface);border-radius:var(--r-card);padding:40px 36px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:12px;transition:box-shadow .2s}
+.more a:hover{box-shadow:var(--shadow-lift)}
+.more b{font-family:var(--f-display);font-weight:700;font-size:28px;line-height:36px}
+.more p{margin:0;color:var(--ink-muted)}
+.more .go{margin-top:auto;color:var(--link);font-weight:600}
 
-footer{background:var(--navy);color:rgba(255,255,255,.8);font-size:14px}
-footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-footer a{color:var(--yellow)}
+footer{background:var(--surface-sunken);color:var(--ink-muted);font-size:12px;line-height:16px}
+footer .wrap{padding-block:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+footer .logo{font-size:19px;line-height:27px;font-weight:600;color:var(--ink)}
+footer a{color:var(--link)}
 
-/* lightbox */
 dialog{border:0;padding:0;background:transparent;max-width:min(92vw,820px)}
-dialog::backdrop{background:rgba(20,22,40,.85)}
-dialog img{border-radius:14px;max-height:84vh;width:auto;margin:0 auto}
-dialog form{text-align:center;margin-top:10px}
-dialog .btn{background:var(--white)}
+dialog::backdrop{background:rgba(0,0,0,.82)}
+dialog img{border-radius:var(--r-md);max-height:84vh;width:auto;margin:0 auto}
+dialog form{text-align:center;margin-top:12px}
 </style>
 </head>
 <body>
@@ -174,38 +161,35 @@ dialog .btn{background:var(--white)}
 </header>
 
 <main id="top">
-  <div class="hero">
+  <div class="hero on-night">
     <div class="wrap">
-      <div>
-        <span class="eyebrow">Goodnotes 靜心挑戰活動卡</span>
-        <h1>暖心起點：<br>從善開始</h1>
-        <p class="lead">11 個用 Goodnotes 完成的小活動，依 CASEL 五大能力設計，幫助學生建立情緒覺察、友善行為與數位素養。</p>
-        <p class="by">林英斌老師 × Goodnotes Education｜適用國小高年級、國中、高中</p>
-        <div class="entries">
-          <a class="entry" href="#cards"><i>①</i><b>活動圖卡</b><span>說明卡、模板、範例一次下載</span></a>
-          <a class="entry" href="#videos"><i>②</i><b>教學影片</b><span>《何止好筆記》操作示範</span></a>
-          <a class="entry" href="ai-cards/"><i>③</i><b>跨域 AI 方法卡</b><span>產生 SEL、永續議題的 Prompt</span></a>
-        </div>
+      <span class="label">Goodnotes 靜心挑戰活動卡</span>
+      <h1>暖心起點，<br><span class="spot">從善開始。</span></h1>
+      <p class="lead">11 個用 Goodnotes 完成的小活動，依 CASEL 五大能力設計，陪學生練習情緒覺察與友善行動。</p>
+      <p class="by">林英斌 iPadART × Goodnotes Education｜適用國小高年級、國中、高中</p>
+      <div class="entries">
+        <a class="entry" href="#cards"><b>活動圖卡</b><span>說明卡、模板與範例，一次下載。</span><em>瀏覽圖卡 ›</em></a>
+        <a class="entry" href="#videos"><b>教學影片</b><span>《何止好筆記》操作示範。</span><em>觀看影片 ›</em></a>
+        <a class="entry" href="ai-cards/"><b>跨域 AI 方法卡</b><span>產生 SEL、永續議題的教學 Prompt。</span><em>開啟方法卡 ›</em></a>
       </div>
-      <img class="hero-card" src="img/cover.png" alt="暖心起點：從善開始 封面卡，Goodnotes Education" width="1080" height="1080">
     </div>
   </div>
 
   <div class="how">
     <div class="wrap">
-      <div><span class="n">1</span><span><b>挑一個活動</b><p>依想培養的能力篩選，先看說明卡的四個步驟。</p></span></div>
-      <div><span class="n">2</span><span><b>下載模板，匯入 Goodnotes</b><p>在 iPad 上存下模板圖片，插入或匯入成筆記頁面。</p></span></div>
-      <div><span class="n">3</span><span><b>學生動手完成</b><p>作品留在自己的筆記本裡，真實的情緒不需要交給 AI。</p></span></div>
+      <div class="grid3">
+        <div><span class="n">1</span><b>挑一個活動。</b><p>依想培養的能力篩選，先看說明卡的四個步驟。</p></div>
+        <div><span class="n">2</span><b>下載模板，匯入 Goodnotes。</b><p>在 iPad 上存下模板圖片，插入或匯入成筆記頁面。</p></div>
+        <div><span class="n">3</span><b>學生動手完成。</b><p>作品留在自己的筆記本裡，真實的情緒不需要交給 AI。</p></div>
+      </div>
     </div>
   </div>
 
   <section id="cards">
     <div class="wrap">
       <div class="sec-head">
-        <div>
-          <h2>活動圖卡</h2>
-          <p>點圖卡可以放大。每個活動都能下載說明卡與模板；部分活動附有完成範例與影片。</p>
-        </div>
+        <h2>十一個小活動，<br><span class="spot">從一張卡開始。</span></h2>
+        <p>點圖卡可以放大。每個活動都能下載說明卡與模板，部分活動附有完成範例與影片。</p>
       </div>
       <div class="filters" role="group" aria-label="依 CASEL 能力篩選">
         <button type="button" aria-pressed="true" data-f="all">全部（11）</button>
@@ -221,7 +205,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="aw">
           <button class="shot" type="button" data-zoom="img/draw-emotion.png"><img src="img/draw-emotion.png" alt="畫出你的情緒 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag aw">自我覺察</span>
+            <span class="tag label">自我覺察</span>
             <h3>畫出你的情緒</h3>
             <p class="goal">情緒理解：學習用圖像與詞語，認出並說出自己的情緒。</p>
             <details><summary>文字版步驟</summary>
@@ -236,7 +220,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="aw">
           <button class="shot" type="button" data-zoom="img/emotion-sort.png"><img src="img/emotion-sort.png" alt="情緒分類遊戲 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag aw">自我覺察</span>
+            <span class="tag label">自我覺察</span>
             <h3>情緒分類遊戲</h3>
             <p class="goal">情緒認識：辨識與分類不同類型的情緒。</p>
             <details><summary>文字版步驟</summary>
@@ -251,7 +235,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="aw">
           <button class="shot" type="button" data-zoom="img/focus.png"><img src="img/focus.png" alt="我的注意力溫度計 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag aw">自我覺察</span>
+            <span class="tag label">自我覺察</span>
             <h3>我的注意力溫度計</h3>
             <p class="goal">練習觀察自己的注意力狀態與影響因素。</p>
             <details><summary>文字版步驟</summary>
@@ -265,7 +249,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="mg">
           <button class="shot" type="button" data-zoom="img/bubble.png"><img src="img/bubble.png" alt="我的平靜泡泡 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag mg">自我管理</span>
+            <span class="tag label">自我管理</span>
             <h3>我的平靜泡泡</h3>
             <p class="goal">用顏色與圖形製作專屬的靜心圖卡。</p>
             <details><summary>文字版步驟</summary>
@@ -280,7 +264,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="mg">
           <button class="shot" type="button" data-zoom="img/positive-voice.png"><img src="img/positive-voice.png" alt="我的正向聲音 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag mg">自我管理</span>
+            <span class="tag label">自我管理</span>
             <h3>我的正向聲音</h3>
             <p class="goal">自我鼓勵：練習說出支持自己的話語，提升信心。</p>
             <details><summary>文字版步驟</summary>
@@ -295,7 +279,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="mg">
           <button class="shot" type="button" data-zoom="img/star-jar.png"><img src="img/star-jar.png" alt="願望星星罐 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag mg">自我管理</span>
+            <span class="tag label">自我管理</span>
             <h3>願望星星罐</h3>
             <p class="goal">希望與目標：想像並可視化實現小目標的希望與動機。</p>
             <details><summary>文字版步驟</summary>
@@ -309,7 +293,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="so">
           <button class="shot" type="button" data-zoom="img/friend-list.png"><img src="img/friend-list.png" alt="好朋友小清單 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag so">社會覺察</span>
+            <span class="tag label">社會覺察</span>
             <h3>好朋友小清單</h3>
             <p class="goal">明確觀察與記錄友善行為。</p>
             <details><summary>文字版步驟</summary>
@@ -323,7 +307,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="so">
           <button class="shot" type="button" data-zoom="img/kindness-found.png"><img src="img/kindness-found.png" alt="發現的善意 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag so">社會覺察</span>
+            <span class="tag label">社會覺察</span>
             <h3>發現的善意</h3>
             <p class="goal">看見他人的善意並練習感受表達。</p>
             <details><summary>文字版步驟</summary>
@@ -338,7 +322,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="re">
           <button class="shot" type="button" data-zoom="img/unwrap.png"><img src="img/unwrap.png" alt="拆封你的正能量 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag re">人際技巧</span>
+            <span class="tag label">人際技巧</span>
             <h3>拆封你的正能量</h3>
             <p class="goal">建立同儕信任與正向互動。</p>
             <details><summary>文字版步驟</summary>
@@ -352,7 +336,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="de">
           <button class="shot" type="button" data-zoom="img/good-deed.png"><img src="img/good-deed.png" alt="今天做了好事嗎？ 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag de">負責任的決策</span>
+            <span class="tag label">負責任的決策</span>
             <h3>今天做了好事嗎？</h3>
             <p class="goal">鼓勵學生主動行善，覺察行為對他人的影響。</p>
             <details><summary>文字版步驟</summary>
@@ -366,7 +350,7 @@ dialog .btn{background:var(--white)}
         <article class="act" data-c="de">
           <button class="shot" type="button" data-zoom="img/marble-diary.png"><img src="img/marble-diary.png" alt="玻璃珠日記 說明卡" loading="lazy" width="1080" height="1080"></button>
           <div class="body">
-            <span class="tag de">負責任的決策</span>
+            <span class="tag label">負責任的決策</span>
             <h3>玻璃珠日記</h3>
             <p class="goal">記錄那些一點一滴累積信任的貼心行動。</p>
             <details><summary>文字版步驟</summary>
@@ -381,14 +365,12 @@ dialog .btn{background:var(--white)}
     </div>
   </section>
 
-  <section class="videos" id="videos">
+  <section class="videos on-night" id="videos">
     <div class="wrap">
       <div class="sec-head">
-        <div>
-          <h2>教學影片：何止好筆記</h2>
-          <p>每支一到兩分鐘，示範 Goodnotes 的工具怎麼用在情緒表達與靜心創作。點畫面播放，有中文字幕。</p>
-        </div>
-        <a class="btn" href="https://www.youtube.com/playlist?list=PLGpeOK3WuyG8MWjABIN3jljrFkCKbPVB1" target="_blank" rel="noopener">在 YouTube 看完整清單 ↗</a>
+        <h2>何止好筆記，<br><span class="spot">一步一步做給你看。</span></h2>
+        <p>每支一到兩分鐘，示範 Goodnotes 的工具怎麼用在情緒表達與靜心創作。點畫面播放，附中文字幕。</p>
+        <a class="more-link" href="https://www.youtube.com/playlist?list=PLGpeOK3WuyG8MWjABIN3jljrFkCKbPVB1" target="_blank" rel="noopener">在 YouTube 看完整清單 ›</a>
       </div>
 
       <div class="series" id="v-bubble">
@@ -417,25 +399,28 @@ dialog .btn{background:var(--white)}
 
   <section id="more">
     <div class="wrap">
-      <div class="sec-head"><div><h2>延伸資源</h2><p>把活動帶進課堂，或延伸到其他領域。</p></div></div>
+      <div class="sec-head">
+        <h2>帶進課堂，<br><span class="spot">也帶到每個領域。</span></h2>
+        <p>同一套活動，可以投影給學生，也可以和其他領域一起設計單元。</p>
+      </div>
       <div class="more">
-        <a class="feature" href="ai-cards/">
-          <span class="k">給各領域老師</span>
+        <a href="ai-cards/">
+          <span class="tag label">給各領域老師</span>
           <b>跨域 AI 方法卡</b>
-          <p>選擇學段、議題（SEL、永續）與領域，產生 8 種 AI 教學方法的 Prompt，一鍵複製。</p>
-          <span class="go">開啟方法卡 →</span>
+          <p>選擇學段、議題與領域，產生 8 種 AI 教學方法的 Prompt，一鍵複製。</p>
+          <span class="go">開啟方法卡 ›</span>
         </a>
         <a href="https://padlet.com/red_pig/goodnotes-sel-s024fjs17zav03w00d3j" target="_blank" rel="noopener">
-          <span class="k">課堂看板</span>
+          <span class="tag label">課堂看板</span>
           <b>Padlet 圖卡庫</b>
           <p>同一套圖卡依 CASEL 分欄整理，方便投影或分享給學生。</p>
-          <span class="go">開啟 Padlet ↗</span>
+          <span class="go">開啟 Padlet ›</span>
         </a>
         <a href="https://www.ipadart.net/product-page/goodnotes-students-activities-cards" target="_blank" rel="noopener" lang="en">
-          <span class="k">ENGLISH VERSION</span>
-          <b>Goodnotes Students Activities Cards</b>
+          <span class="tag label">English</span>
+          <b>Goodnotes Students Activities Card</b>
           <p>The English edition of this card set, on ipadart.net.</p>
-          <span class="go">Open ↗</span>
+          <span class="go">Learn more ›</span>
         </a>
       </div>
     </div>
@@ -444,8 +429,8 @@ dialog .btn{background:var(--white)}
 
 <footer>
   <div class="wrap">
-    <span>© 林英斌 iPadART × Goodnotes Education｜暖心起點：從善開始</span>
-    <span><a href="https://www.ipadart.net/">ipadart.net</a></span>
+    <span class="logo">iPadART</span>
+    <span>© 2026 林英斌 iPadART × Goodnotes Education｜<a href="https://www.ipadart.net/">ipadart.net</a></span>
   </div>
 </footer>
 
