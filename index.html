@@ -11,13 +11,13 @@
 <meta property="og:url" content="https://sel.ipadart.net/">
 <link rel="icon" href="img/cover.png">
 <style>
-/* Edu Spectrum (林英斌 design system): canvas/surface/night grounds, system type (SF Pro / PingFang TC), one Spotlight per headline, 28px cards, pill buttons. Series colour for this site: Goodnotes blue (#00b6d7; darkened to #007f9e on light grounds for contrast). */
+/* Edu Spectrum (林英斌 design system): canvas/surface/night grounds, system type (SF Pro / PingFang TC), one Spotlight per headline, 28px cards, pill buttons. Series colour for this site: Goodnotes blue on light grounds (#007f9e, deepened from logo #00b6d7 for contrast); card-art yellow #ffe15a on night grounds. */
 :root{
   --canvas:#f5f5f7;--surface:#ffffff;--surface-sunken:#e8e8ed;--hairline:#d2d2d7;
   --ink:#1d1d1f;--ink-muted:#6e6e73;--link:#0066cc;
   --action:#0071e3;--on-action:#ffffff;
   --night:#0b0b0c;--on-night:#ffffff;--on-night-muted:#c7c7cc;--link-on-night:#2997ff;
-  --series:#007f9e;--series-end:#0099bb;--series-on-night:#00b6d7;--on-series:#ffffff;
+  --series:#007f9e;--series-end:#0099bb;--series-on-night:#ffe15a;--on-series:#ffffff;
   --shadow-lift:0 4px 24px rgba(0,0,0,.08);
   --r-sm:8px;--r-md:18px;--r-card:28px;--r-pill:980px;
   --f-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang TC","Noto Sans TC","Helvetica Neue",Arial,sans-serif;
@@ -90,7 +90,7 @@ section{padding-block:96px}
 .act{background:var(--surface);border-radius:var(--r-card);overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:box-shadow .2s}
 .act:hover{box-shadow:var(--shadow-lift)}
 .act .shot{all:unset;cursor:zoom-in;display:block;padding:24px 24px 0}
-.act .shot img{aspect-ratio:1;object-fit:cover;width:100%;border-radius:var(--r-md)}
+.act .shot img{aspect-ratio:1;object-fit:cover;width:100%;border-radius:var(--r-md);background:#20233f}
 .act .body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:12px;flex:1}
 .tag{align-self:flex-start}
 .act h3{margin:0;font-family:var(--f-display);font-weight:700;font-size:26px;line-height:34px}
@@ -208,7 +208,7 @@ dialog form{text-align:center;margin-top:12px}
       <div class="grid" id="grid">
 
         <article class="act" data-c="aw">
-          <button class="shot" type="button" data-zoom="img/draw-emotion.png"><img src="img/draw-emotion.png" alt="畫出你的情緒 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/draw-emotion.png"><img src="img/draw-emotion.png" alt="畫出你的情緒 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">自我覺察</span>
             <h3>畫出你的情緒</h3>
@@ -223,7 +223,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="aw">
-          <button class="shot" type="button" data-zoom="img/emotion-sort.png"><img src="img/emotion-sort.png" alt="情緒分類遊戲 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/emotion-sort.png"><img src="img/emotion-sort.png" alt="情緒分類遊戲 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">自我覺察</span>
             <h3>情緒分類遊戲</h3>
@@ -238,7 +238,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="aw">
-          <button class="shot" type="button" data-zoom="img/focus.png"><img src="img/focus.png" alt="我的注意力溫度計 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/focus.png"><img src="img/focus.png" alt="我的注意力溫度計 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">自我覺察</span>
             <h3>我的注意力溫度計</h3>
@@ -252,7 +252,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="mg">
-          <button class="shot" type="button" data-zoom="img/bubble.png"><img src="img/bubble.png" alt="我的平靜泡泡 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/bubble.png"><img src="img/bubble.png" alt="我的平靜泡泡 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">自我管理</span>
             <h3>我的平靜泡泡</h3>
@@ -267,7 +267,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="mg">
-          <button class="shot" type="button" data-zoom="img/positive-voice.png"><img src="img/positive-voice.png" alt="我的正向聲音 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/positive-voice.png"><img src="img/positive-voice.png" alt="我的正向聲音 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">自我管理</span>
             <h3>我的正向聲音</h3>
@@ -282,7 +282,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="mg">
-          <button class="shot" type="button" data-zoom="img/star-jar.png"><img src="img/star-jar.png" alt="願望星星罐 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/star-jar.png"><img src="img/star-jar.png" alt="願望星星罐 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">自我管理</span>
             <h3>願望星星罐</h3>
@@ -296,7 +296,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="so">
-          <button class="shot" type="button" data-zoom="img/friend-list.png"><img src="img/friend-list.png" alt="好朋友小清單 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/friend-list.png"><img src="img/friend-list.png" alt="好朋友小清單 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">社會覺察</span>
             <h3>好朋友小清單</h3>
@@ -310,7 +310,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="so">
-          <button class="shot" type="button" data-zoom="img/kindness-found.png"><img src="img/kindness-found.png" alt="發現的善意 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/kindness-found.png"><img src="img/kindness-found.png" alt="發現的善意 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">社會覺察</span>
             <h3>發現的善意</h3>
@@ -325,7 +325,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="re">
-          <button class="shot" type="button" data-zoom="img/unwrap.png"><img src="img/unwrap.png" alt="拆封你的正能量 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/unwrap.png"><img src="img/unwrap.png" alt="拆封你的正能量 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">人際技巧</span>
             <h3>拆封你的正能量</h3>
@@ -339,7 +339,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="de">
-          <button class="shot" type="button" data-zoom="img/good-deed.png"><img src="img/good-deed.png" alt="今天做了好事嗎？ 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/good-deed.png"><img src="img/good-deed.png" alt="今天做了好事嗎？ 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">負責任的決策</span>
             <h3>今天做了好事嗎？</h3>
@@ -353,7 +353,7 @@ dialog form{text-align:center;margin-top:12px}
         </article>
 
         <article class="act" data-c="de">
-          <button class="shot" type="button" data-zoom="img/marble-diary.png"><img src="img/marble-diary.png" alt="玻璃珠日記 說明卡" loading="lazy" width="1080" height="1080"></button>
+          <button class="shot" type="button" data-zoom="img/marble-diary.png"><img src="img/marble-diary.png" alt="玻璃珠日記 說明卡" decoding="async" width="1080" height="1080"></button>
           <div class="body">
             <span class="tag label">負責任的決策</span>
             <h3>玻璃珠日記</h3>
