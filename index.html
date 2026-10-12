@@ -11,13 +11,13 @@
 <meta property="og:url" content="https://sel.ipadart.net/">
 <link rel="icon" href="img/cover.png">
 <style>
-/* Edu Spectrum (林英斌 design system): canvas/surface/night grounds, system type (SF Pro / PingFang TC), one Spotlight per headline, 28px cards, pill buttons. Series colour for this site: spotlight-green (成長、社群). */
+/* Edu Spectrum (林英斌 design system): canvas/surface/night grounds, system type (SF Pro / PingFang TC), one Spotlight per headline, 28px cards, pill buttons. Series colour for this site: Goodnotes blue (#00b6d7; darkened to #007f9e on light grounds for contrast). */
 :root{
   --canvas:#f5f5f7;--surface:#ffffff;--surface-sunken:#e8e8ed;--hairline:#d2d2d7;
   --ink:#1d1d1f;--ink-muted:#6e6e73;--link:#0066cc;
   --action:#0071e3;--on-action:#ffffff;
   --night:#0b0b0c;--on-night:#ffffff;--on-night-muted:#c7c7cc;--link-on-night:#2997ff;
-  --series:#1e8a3e;--series-end:#2fa65a;--series-on-night:#4cd471;--on-series:#ffffff;
+  --series:#007f9e;--series-end:#0099bb;--series-on-night:#00b6d7;--on-series:#ffffff;
   --shadow-lift:0 4px 24px rgba(0,0,0,.08);
   --r-sm:8px;--r-md:18px;--r-card:28px;--r-pill:980px;
   --f-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang TC","Noto Sans TC","Helvetica Neue",Arial,sans-serif;
@@ -27,14 +27,14 @@
 @media (prefers-color-scheme:dark){:root{
   --canvas:#000000;--surface:#1c1c1e;--surface-sunken:#2c2c2e;--hairline:#424245;
   --ink:#f5f5f7;--ink-muted:#a1a1a6;--link:#2997ff;
-  --series:#4cd471;--series-end:#7be495;--on-series:#0b0b0c;
+  --series:#00b6d7;--series-end:#5ad0e5;--on-series:#0b0b0c;
   --shadow-lift:0 4px 24px rgba(0,0,0,.5);
   color-scheme:dark}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--f-sans);font-size:17px;line-height:28px}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:var(--link)}
 .wrap{max-width:1080px;margin:0 auto;padding-inline:16px}
 :focus-visible{outline:3px solid var(--action);outline-offset:2px}
